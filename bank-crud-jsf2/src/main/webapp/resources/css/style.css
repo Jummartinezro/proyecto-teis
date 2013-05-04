@@ -1,0 +1,53 @@
+body {
+	font-family: tahoma;
+	padding: 0px;
+	margin: 0px;
+	background: #f5f5f5
+}
+
+div.content {
+	padding: 10px 20px;
+}
+
+div.content h1 {
+	font-size: 18pt;
+	border-bottom: 5px solid #a00;
+	padding: 0px;
+	margin: 10px 0px 20px;
+	width: 80%;
+}
+
+.right {
+	text-align: right !important;
+}
+
+div.content div.data table {
+	border: 2px solid #000;
+	background: #fff;
+	width: 80%;
+}
+
+div.content div.data table td {
+	font-size: 10pt;
+	padding: 5px 10px;
+	border-bottom: 1px solid #ddd;
+	text-align: left;
+}
+
+a.cancel,a.clear,a.create,a.delete,a.edit,a.refresh,a.update {
+	font-size: 9pt;
+	color: #900;
+	font-wight: bold;
+	padding-left: 20px;
+	margin-right: 5px;
+	text-decoration: none;
+}
+
+a.cancel:hover,a.clear:hover,a.create:hover,a.delete:hover,a.edit:hover,a.refresh:hover,a.update:hover
+	{
+	color: #000;
+}
+
+input.text {
+	border: 2px solid #aaa;
+}
