@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<f:view contentType="text/html" locale="#{localeBean.locale}">
+
+	<h:head>
+		<title><ui:insert name="title" /></title>
+
+		<meta http-equiv="X-UA-Compatible" content="IE=7" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="cache-control"
+			content="no-cache, no-store, must-revalidate, max-age=0" />
+		<meta http-equiv="pragma" content="no-cache" />
+
+		<meta http-equiv='refresh'
+			content="#{session.maxInactiveInterval}; URL=#{request.requestURI}" />
+
+		<h:outputStylesheet name="style.css" library="css" />
+		<h:outputStylesheet name="calendar.css" library="css" />
+		<h:outputScript name="calendar.js" library="scripts" target="head" />
+
+		<style type="text/css">
+			div.content div.data table th {
+				text-align: left;
+				font-size: 8pt;
+				padding: 10px 10px 7px;
+				text-transform: uppercase;
+				color: #fff;
+				background: url(#{request.contextPath}/resources/images/head.gif) left
+					-5px repeat-x;
+			}
+			
+			.error {
+				font-size: 14pt;
+				background: url(#{request.contextPath}/resources/images/msg/error.png)
+					left 5px no-repeat;
+				padding: 0px;
+				padding-left: 20px;
+				margin: 0px 0px 10px;
+				color: #060;
+				width: 80%;
+			}
+			
+			.fatal {
+				font-size: 14pt;
+				background: url(#{request.contextPath}/resources/images/msg/fatal.png)
+					left 5px no-repeat;
+				padding: 0px;
+				padding-left: 20px;
+				margin: 0px 0px 10px;
+				color: #060;
+				width: 80%;
+			}
+			
+			.info {
+				font-size: 14pt;
+				background: url(#{request.contextPath}/resources/images/msg/info.png)
+					left 5px no-repeat;
+				padding: 0px;
+				padding-left: 20px;
+				margin: 0px 0px 10px;
+				color: #060;
+				width: 80%;
+			}
+			
+			.success {
+				font-size: 14pt;
+				background: url(#{request.contextPath}/resources/images/msg/success.png)
+					left 5px no-repeat;
+				padding: 0px;
+				padding-left: 20px;
+				margin: 0px 0px 10px;
+				color: #060;
+				width: 80%;
+			}
+			
+			.warning {
+				font-size: 14pt;
+				background: url(#{request.contextPath}/resources/images/msg/warning.png)
+					left 5px no-repeat;
+				padding: 0px;
+				padding-left: 20px;
+				margin: 0px 0px 10px;
+				color: #060;
+				width: 80%;
+			}
+			
+			a.cancel {
+				background: url(#{request.contextPath}/resources/images/cancel.png) left
+					center no-repeat;
+			}
+			
+			a.clear {
+				background: url(#{request.contextPath}/resources/images/clear.png) left
+					center no-repeat;
+			}
+			
+			a.create {
+				background: url(#{request.contextPath}/resources/images/create.png) left
+					center no-repeat;
+			}
+			
+			a.delete {
+				background: url(#{request.contextPath}/resources/images/delete.png) left
+					center no-repeat;
+			}
+			
+			a.edit {
+				background: url(#{request.contextPath}/resources/images/edit.png) left
+					center no-repeat;
+			}
+			
+			a.refresh {
+				background: url(#{request.contextPath}/resources/images/refresh.png)
+					left center no-repeat;
+			}
+			
+			a.update {
+				background: url(#{request.contextPath}/resources/images/update.png) left
+					center no-repeat;
+			}
+		</style>
+	</h:head>
+
+	<h:body>
+		<div class="content">
+
+			<h:form id="localeForm">
+				<h:selectOneMenu id="localeId"
+					value="#{localeBean.selectedLocaleKey}">
+					<f:ajax event="change" listener="#{localeBean.changeLocale}"
+						execute="@this" render="@form" />
+					<f:selectItems value="#{localeBean.availableLocaleKeys}"
+						var="localeKey" itemValue="#{localeKey}"
+						itemLabel="#{i18n[localeKey]}" />
+				</h:selectOneMenu>
+			</h:form>
+
+			<ui:include src="/WEB-INF/templates/includes/header.xhtml" />
+
+			<div class="data">
+				<ui:insert name="content" />
+			</div>
+		</div>
+	</h:body>
+</f:view>
+</html>
