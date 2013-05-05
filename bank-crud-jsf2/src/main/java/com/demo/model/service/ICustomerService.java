@@ -6,6 +6,7 @@ package com.demo.model.service;
 import java.util.List;
 
 import com.demo.pojo.Customer;
+import com.demo.util.GenreNotEditableException;
 
 public abstract interface ICustomerService
 {
@@ -23,5 +24,5 @@ public abstract interface ICustomerService
 
     public abstract void save(Customer entity);
 
-    public abstract Customer update(Customer entity) throws Exception;
+    public abstract Customer update(Customer entity) throws GenreNotEditableException;
 }
