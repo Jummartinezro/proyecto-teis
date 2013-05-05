@@ -23,5 +23,5 @@ public abstract interface ICustomerService
 
     public abstract void save(Customer entity);
 
-    public abstract Customer update(Customer entity);
+    public abstract Customer update(Customer entity) throws Exception;
 }
