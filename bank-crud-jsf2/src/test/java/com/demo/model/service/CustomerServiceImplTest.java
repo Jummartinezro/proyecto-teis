@@ -19,8 +19,9 @@ import junit.framework.TestCase;
  */
 public class CustomerServiceImplTest extends TestCase {
 
-//    CustomerDAO customerDAO;
     CustomerServiceImpl customerServiceImpl;
+    Customer customer;
+    Calendar fecha1;
 
     public CustomerServiceImplTest(String testName) {
         super(testName);
@@ -34,6 +35,17 @@ public class CustomerServiceImplTest extends TestCase {
         customerServiceImpl = new CustomerServiceImpl();
         customerServiceImpl.postConstruct();
         customerServiceImpl.setDao(dao);
+
+        fecha1 = Calendar.getInstance();
+        fecha1.setTimeInMillis(0);
+        fecha1.set(Calendar.YEAR, 1990);
+        fecha1.set(Calendar.MONTH, Calendar.JANUARY);
+        fecha1.set(Calendar.DATE, 4);
+
+        customer = new Customer("Customer 1",
+                new Date(fecha1.getTimeInMillis()), Gender.MALE, "Description",
+                Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE);
+        customerServiceImpl.save(customer);
     }
 
 //    @Override
@@ -178,26 +190,14 @@ public class CustomerServiceImplTest extends TestCase {
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }
-    
     /**
-     * Test the action ocurred when the genre of a customer is gone to be changed
+     * Test the action ocurred when the genre of a customer is gone to be
+     * changed
      */
     public void testSexoNoModificable() {
-        Calendar fecha1 = Calendar.getInstance();
-        fecha1.setTimeInMillis(0);
-        fecha1.set(Calendar.YEAR, 1990);
-        fecha1.set(Calendar.MONTH, Calendar.JANUARY);
-        fecha1.set(Calendar.DATE, 4);
-
-        Customer customer = new Customer("Customer 1",
-                new Date(fecha1.getTimeInMillis()), Gender.MALE, "Description",
-                Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE);
-        
         Customer customer2 = new Customer("Customer 2",
                 new Date(fecha1.getTimeInMillis()), Gender.FEMALE, "Description",
                 Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE);
-
-        customerServiceImpl.save(customer);
 
         customer2.setId(customer.getId());
         try {
@@ -205,6 +205,35 @@ public class CustomerServiceImplTest extends TestCase {
             fail("A Exception was expected");
         } catch (GenreNotEditableException ex) {
             assertEquals("Trying to change the gender of a customer", ex.getMessage());
+        }
+    }
+
+    public void testModificacionCorrecta() {
+
+        fecha1.set(Calendar.YEAR, 1991);
+        fecha1.set(Calendar.MONTH, Calendar.FEBRUARY);
+        fecha1.set(Calendar.DATE, 5);
+
+        Customer customer2 = new Customer("Customer 2",
+                new Date(fecha1.getTimeInMillis()), Gender.MALE, "New Description",
+                Card.MASTERCARD, Integer.valueOf(2), Boolean.FALSE, Boolean.TRUE);
+
+        customer2.setId(customer.getId());
+
+        try {
+            customerServiceImpl.update(customer2);
+            customer = customerServiceImpl.findById(customer2.getId());
+            assertEquals(customer2.getAbout(), customer.getAbout());
+            assertEquals(customer2.getBirthday(), customer.getBirthday());
+            assertEquals(customer2.getCard(), customer.getCard());
+            assertEquals(customer2.getGender(), customer.getGender());
+            assertEquals(customer2.getId(), customer.getId());
+            assertEquals(customer2.getLicense(), customer.getLicense());
+            assertEquals(customer2.getMailingList(), customer.getMailingList());
+            assertEquals(customer2.getName(), customer.getName());
+            assertEquals(customer2.getNumberOfCards(), customer.getNumberOfCards());
+        } catch (GenreNotEditableException ex) {
+            fail("Is supposed that the Genre has not changed");
         }
     }
 }
