@@ -23,6 +23,7 @@ import com.demo.pojo.Card;
 import com.demo.pojo.Customer;
 import com.demo.pojo.Gender;
 import com.demo.util.GenreNotEditableException;
+import com.demo.util.RequiredAttributeException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.Transient;
@@ -140,7 +141,11 @@ public class CustomerBean implements Serializable {
                 Logger.getLogger(CustomerBean.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            this.service.save(this.selectedCustomer);
+            try {
+                this.service.save(this.selectedCustomer);
+            } catch (RequiredAttributeException ex) {
+                Logger.getLogger(CustomerBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         refresh();
