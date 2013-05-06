@@ -38,7 +38,7 @@ public class Customer implements Serializable
 	private Integer id;
 
 	@NotNull
-	@Size(min = 3, max = 10)
+	@Size(min = 5, max =30)
 	@Column(name = "NAME", nullable = false, length = 10)
 	private String name;
 
@@ -51,8 +51,8 @@ public class Customer implements Serializable
 	@Enumerated(EnumType.ORDINAL)
 	private Gender gender;
 
-	@Size(max = 255)
-	@Column(name = "ABOUT", length = 255)
+	@Size(max = 250)
+	@Column(name = "ABOUT", length = 250)
 	private String about;
 
 	@Enumerated(EnumType.ORDINAL)
