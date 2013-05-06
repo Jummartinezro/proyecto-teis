@@ -244,14 +244,8 @@ public class CustomerServiceImplTest extends TestCase {
         fechaA.set(Calendar.YEAR, 1985);
         fechaA.set(Calendar.MONTH, Calendar.JUNE);
         fechaA.set(Calendar.DATE, 10);
-        
-        Customer customer = new Customer("Customer de Validación",
-                new Date(fechaA.getTimeInMillis()), Gender.MALE, "Description",
-                Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE);
-        
-        customerServiceImpl.save(customer);
-        
-        //NAME
+               
+       //NAME
         
         Customer customerShortName = new Customer("Juan",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, "Description",
@@ -291,7 +285,6 @@ public class CustomerServiceImplTest extends TestCase {
         
         //BIRTHDAY
         
-        Calendar fecha1 = Calendar.getInstance();
         Calendar fecha2 = Calendar.getInstance();
         Calendar fecha3 = Calendar.getInstance();
         fecha1.set(Calendar.YEAR, 1980);
