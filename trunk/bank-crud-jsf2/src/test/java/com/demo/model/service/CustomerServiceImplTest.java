@@ -11,6 +11,8 @@ import com.demo.pojo.Gender;
 import com.demo.util.GenreNotEditableException;
 import java.util.Calendar;
 import java.util.Date;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.fail;
 import junit.framework.TestCase;
 
 /**
@@ -472,6 +474,54 @@ public class CustomerServiceImplTest extends TestCase {
             fail("A Exception was expected");
         } catch (Exception e) {
             assertEquals("¡Trying to put a null Mailing List!", e.getMessage());
+        }
+        
+        Customer invalidEmail1Customer = new Customer("Customer de Validación",
+                new Date(fechaA.getTimeInMillis()), Gender.MALE, "Decription",
+                null, Integer.valueOf(1), null, Boolean.TRUE, "abc@def");
+        
+        invalidEmail1Customer.setId(customer.getId());
+        try {
+            customerServiceImpl.update(invalidEmail1Customer);
+            fail("A Exception was expected");
+        } catch (Exception e) {
+            assertEquals("¡Trying to put a invalid eMail!", e.getMessage());
+        }
+        
+        Customer invalidEmail2Customer = new Customer("Customer de Validación",
+                new Date(fechaA.getTimeInMillis()), Gender.MALE, "Decription",
+                null, Integer.valueOf(1), null, Boolean.TRUE, "abc.efg");
+        
+        invalidEmail2Customer.setId(customer.getId());
+        try {
+            customerServiceImpl.update(invalidEmail2Customer);
+            fail("A Exception was expected");
+        } catch (Exception e) {
+            assertEquals("¡Trying to put a invalid eMail!", e.getMessage());
+        }
+        
+        Customer invalidEmail3Customer = new Customer("Customer de Validación",
+                new Date(fechaA.getTimeInMillis()), Gender.MALE, "Decription",
+                null, Integer.valueOf(1), null, Boolean.TRUE, "abc");
+        
+        invalidEmail3Customer.setId(customer.getId());
+        try {
+            customerServiceImpl.update(invalidEmail3Customer);
+            fail("A Exception was expected");
+        } catch (Exception e) {
+            assertEquals("¡Trying to put a invalid eMail!", e.getMessage());
+        }
+        
+        Customer validEmailCustomer = new Customer("Customer de Validación",
+                new Date(fechaA.getTimeInMillis()), Gender.MALE, "Decription",
+                null, Integer.valueOf(1), null, Boolean.TRUE, "abc@def.ghi");
+        
+        validEmailCustomer.setId(customer.getId());
+        try {
+            customerServiceImpl.update(validEmailCustomer);
+            assertEquals(customerServiceImpl.findById(customer.getId()).geteMail(), validEmailCustomer.geteMail());
+        } catch (Exception e) {
+            System.out.println("¡Unexpected error!");
         }
         
     }
