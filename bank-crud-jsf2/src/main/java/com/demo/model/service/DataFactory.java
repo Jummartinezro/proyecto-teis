@@ -108,7 +108,7 @@ public class DataFactory implements IDataFactory
         {
             Customer customer = new Customer("name " + i, getRandomDate(),
                     getRandomGender(), "test info " + i, getRandomCard(),
-                    getRandomNumberOfCards(), getRandomBoolean(), Boolean.TRUE);
+                    getRandomNumberOfCards(), getRandomBoolean(), Boolean.TRUE, "random@mail.com");
 
             list.add(customer);
         }

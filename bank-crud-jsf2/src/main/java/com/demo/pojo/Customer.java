@@ -71,7 +71,20 @@ public class Customer implements Serializable
 	@AssertTrue
 	@Column(name = "LICENSE")
 	private Boolean license;
+        
+        @NotNull
+	@Size(min = 3, max = 30)
+	@Column(name = "EMAIL", nullable = false, length = 30)
+	private String eMail;
 
+        public String geteMail() {
+            return eMail;
+        }
+
+        public void seteMail(String eMail) {
+            this.eMail = eMail;
+        }
+        
 	public Customer()
 	{
 		super();
@@ -79,7 +92,7 @@ public class Customer implements Serializable
 
 	public Customer(String name, Date birthday, Gender gender, String about,
 			Card card, Integer numberOfCards, Boolean mailingList,
-			Boolean license)
+			Boolean license, String eMail)
 	{
 		super();
 		this.name = name;
@@ -90,6 +103,8 @@ public class Customer implements Serializable
 		this.numberOfCards = numberOfCards;
 		this.mailingList = mailingList;
 		this.license = license;
+                this.eMail = eMail;
+                
 	}
 
 	@Override
@@ -182,6 +197,9 @@ public class Customer implements Serializable
 		{
 			return false;
 		}
+                if (!eMail.equals(other.eMail)){
+                        return false;
+                }
 		return true;
 	}
 
@@ -300,6 +318,6 @@ public class Customer implements Serializable
 		return String
 				.format("Customer [id=%s, name=%s, numberOfCards=%s, birthday=%s, gender=%s, card=%s, about=%s, mailingList=%s, license=%s] [super.toString()=%s]",
 						id, name, numberOfCards, birthday, gender, card, about,
-						mailingList, license, super.toString());
+						mailingList, license, eMail, super.toString());
 	}
 }
