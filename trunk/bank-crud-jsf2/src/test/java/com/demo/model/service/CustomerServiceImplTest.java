@@ -44,7 +44,7 @@ public class CustomerServiceImplTest extends TestCase {
 
         customer = new Customer("Customer 1",
                 new Date(fecha1.getTimeInMillis()), Gender.MALE, "Description",
-                Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE);
+                Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
         customerServiceImpl.save(customer);
     }
 
@@ -197,7 +197,7 @@ public class CustomerServiceImplTest extends TestCase {
     public void testSexoNoModificable() {
         Customer customer2 = new Customer("Customer 2",
                 new Date(fecha1.getTimeInMillis()), Gender.FEMALE, "Description",
-                Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE);
+                Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
 
         customer2.setId(customer.getId());
         try {
@@ -216,7 +216,7 @@ public class CustomerServiceImplTest extends TestCase {
 
         Customer customer2 = new Customer("Customer 2",
                 new Date(fecha1.getTimeInMillis()), Gender.MALE, "New Description",
-                Card.MASTERCARD, Integer.valueOf(2), Boolean.FALSE, Boolean.TRUE);
+                Card.MASTERCARD, Integer.valueOf(2), Boolean.FALSE, Boolean.TRUE, "customer@teis.com");
 
         customer2.setId(customer.getId());
 
@@ -249,7 +249,7 @@ public class CustomerServiceImplTest extends TestCase {
         
         Customer customerShortName = new Customer("Juan",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, "Description",
-                Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE);
+                Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
  
         customerShortName.setId(customer.getId());
         try {
@@ -261,7 +261,7 @@ public class CustomerServiceImplTest extends TestCase {
         
         Customer customerGoodName = new Customer("Carlos Andres Gil",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, "Description",
-                Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE);
+                Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
 
         customerGoodName.setId(customer.getId());
         try {
@@ -273,7 +273,7 @@ public class CustomerServiceImplTest extends TestCase {
         
         Customer customerLongName = new Customer("Adriana Carolina Otálora Quecan",
                 new Date(fechaA.getTimeInMillis()), Gender.FEMALE, "Description",
-                Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE);
+                Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
         
         customerLongName.setId(customer.getId());
         try {
@@ -299,7 +299,7 @@ public class CustomerServiceImplTest extends TestCase {
         
         Customer adultCustomer = new Customer("Customer de Validación",
                 new Date(fecha1.getTimeInMillis()), Gender.MALE, "Description",
-                Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE);
+                Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
         
         adultCustomer.setId(customer.getId());
         try {
@@ -311,7 +311,7 @@ public class CustomerServiceImplTest extends TestCase {
         
         Customer underageCustomer = new Customer("Customer de Validación",
                 new Date(fecha2.getTimeInMillis()), Gender.MALE, "Description",
-                Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE);
+                Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
         
         underageCustomer.setId(customer.getId());
         try {
@@ -323,7 +323,7 @@ public class CustomerServiceImplTest extends TestCase {
         
         Customer nullBirthdayCustomer = new Customer("Customer de Validación",
                 null, Gender.MALE, "Description",
-                Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE);
+                Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
         
         nullBirthdayCustomer.setId(customer.getId());
         try {
@@ -337,7 +337,7 @@ public class CustomerServiceImplTest extends TestCase {
         
         Customer nullGenreCustomer = new Customer("Customer de Validación",
                 new Date(fechaA.getTimeInMillis()), null, "Description",
-                Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE);
+                Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
         
         nullGenreCustomer.setId(customer.getId());
         try {
@@ -351,7 +351,7 @@ public class CustomerServiceImplTest extends TestCase {
         
         Customer goodAboutCustomer = new Customer("Customer de Validación",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, "Descripción de este cliente",
-                Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE);
+                Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
         
         goodAboutCustomer.setId(customer.getId());
         try {
@@ -374,7 +374,7 @@ public class CustomerServiceImplTest extends TestCase {
                 + "debet libris consulatu. No mei ferri graeco dicunt, ad cum veri "
                 + "accommodare. Sed at malis omnesque delicata, usu et iusto zzril "
                 + "meliore. Dicunt maiorum eloquentiam cum cu, sit summo dolor "
-                + "essent te.", Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE);
+                + "essent te.", Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
         
         longAboutCustomer.setId(customer.getId());
         try {
@@ -386,7 +386,7 @@ public class CustomerServiceImplTest extends TestCase {
         
         Customer nullAboutCustomer = new Customer("Customer de Validación",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, null,
-                Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE);
+                Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
         
         nullAboutCustomer.setId(customer.getId());
         try {
@@ -398,7 +398,7 @@ public class CustomerServiceImplTest extends TestCase {
         
         Customer emptyAboutCustomer = new Customer("Customer de Validación",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, "",
-                Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE);
+                Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
         
         emptyAboutCustomer.setId(customer.getId());
         try {
@@ -412,7 +412,7 @@ public class CustomerServiceImplTest extends TestCase {
         
         Customer cardCustomer = new Customer("Customer de Validación",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, "Decription",
-                Card.AMEX, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE);
+                Card.AMEX, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
         
         cardCustomer.setId(customer.getId());
         try {
@@ -424,7 +424,7 @@ public class CustomerServiceImplTest extends TestCase {
         
         Customer nullCardCustomer = new Customer("Customer de Validación",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, "Decription",
-                null, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE);
+                null, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
         
         nullCardCustomer.setId(customer.getId());
         try {
@@ -438,7 +438,7 @@ public class CustomerServiceImplTest extends TestCase {
         
         Customer trueMailingListCustomer = new Customer("Customer de Validación",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, "Decription",
-                null, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE);
+                null, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
         
         trueMailingListCustomer.setId(customer.getId());
         try {
@@ -451,7 +451,7 @@ public class CustomerServiceImplTest extends TestCase {
         
         Customer falseMailingListCustomer = new Customer("Customer de Validación",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, "Decription",
-                null, Integer.valueOf(1), Boolean.FALSE, Boolean.TRUE);
+                null, Integer.valueOf(1), Boolean.FALSE, Boolean.TRUE, "customer@teis.com");
         
         falseMailingListCustomer.setId(customer.getId());
         try {
@@ -464,7 +464,7 @@ public class CustomerServiceImplTest extends TestCase {
         
         Customer nullMailingListCustomer = new Customer("Customer de Validación",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, "Decription",
-                null, Integer.valueOf(1), null, Boolean.TRUE);
+                null, Integer.valueOf(1), null, Boolean.TRUE, "customer@teis.com");
         
         nullMailingListCustomer.setId(customer.getId());
         try {
