@@ -44,7 +44,10 @@ public class CustomerServiceImplConsultaTest extends TestCase {
         customer.setGender(Gender.MALE);
         customer.setCard(Card.MASTERCARD);
         customer.seteMail("abc@def.com");
-        customer.setId(1);
+        customer.setLicense(true);
+        customer.setAbout("xxx");
+        customer.setNumberOfCards(1);
+        customer.setMailingList(true);
 
         Customer customer2 = new Customer();
         customer2.setName("TestCustomer");
@@ -57,7 +60,10 @@ public class CustomerServiceImplConsultaTest extends TestCase {
         customer2.setGender(Gender.MALE);
         customer2.setCard(Card.MASTERCARD);
         customer2.seteMail("ghi@jkl.es");
-        customer2.setId(2);
+        customer2.setLicense(true);
+        customer2.setAbout("xxx");
+        customer2.setNumberOfCards(1);
+        customer2.setMailingList(true);
 
         customerServiceImpl.save(customer);
         customerServiceImpl.save(customer2);
@@ -95,12 +101,15 @@ public class CustomerServiceImplConsultaTest extends TestCase {
      */
     public void testFindById() {
         
+        try {
+            customerServiceImpl.findById(null);
+            fail("A Exception was expected");
+        } catch (Exception ex) {
+            assertEquals("id to load is required for loading", ex.getMessage());
+        }
+           
         Customer expResult = null;
-        Customer result = customerServiceImpl.findById(null);
-        assertEquals(expResult, result);
-        
-        expResult = null;
-        result = customerServiceImpl.findById(-10);
+        Customer result = customerServiceImpl.findById(-10);
         assertEquals(expResult, result);
         
         expResult = (Customer)listaClientes.get(0);
