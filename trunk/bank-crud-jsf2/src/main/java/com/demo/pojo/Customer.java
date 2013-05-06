@@ -5,7 +5,6 @@ package com.demo.pojo;
 
 import java.io.Serializable;
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -59,7 +58,6 @@ public class Customer implements Serializable
 	@Enumerated(EnumType.ORDINAL)
 	private Card card;
 
-	@NotNull
 	@Min(0L)
 	@Max(150L)
 	@Column(name = "NUMBEROFCARDS", nullable = false)
