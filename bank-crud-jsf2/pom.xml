@@ -228,11 +228,6 @@
 	  <artifactId>jta</artifactId>
 	  <version>1.0.1B</version>
 	 </dependency>
-	 <dependency>
-	  <groupId>unknown.binary</groupId>
-	  <artifactId>mysql-connector-java-5.1.13-bin</artifactId>
-	  <version>SNAPSHOT</version>
-	 </dependency>
 	</dependencies>
 
 	<build>
