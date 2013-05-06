@@ -7,6 +7,7 @@ import com.demo.model.dao.CustomerDAO;
 import com.demo.model.dao.ICrudDAO;
 import com.demo.pojo.Customer;
 import com.demo.util.GenreNotEditableException;
+import com.demo.util.RequiredAttributeException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -66,7 +67,7 @@ public class CustomerServiceImpl implements ICustomerService {
     }
 
     @Override
-    public void save(Customer entity) {
+    public void save(Customer entity) throws RequiredAttributeException {
         this.dao.save(entity);
     }
 
