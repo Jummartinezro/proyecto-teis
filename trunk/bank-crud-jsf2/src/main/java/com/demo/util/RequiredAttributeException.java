@@ -6,10 +6,10 @@ package com.demo.util;
 
 /**
  *
- * @author Johan
+ * @author Zergio
  */
 public class RequiredAttributeException extends Exception {
-    
+
     public RequiredAttributeException(String msg) {
         super(msg);
     }
