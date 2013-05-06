@@ -7,8 +7,12 @@ import com.demo.model.dao.CustomerDAO;
 import com.demo.model.dao.ICrudDAO;
 import com.demo.pojo.Customer;
 import com.demo.util.GenreNotEditableException;
+import com.demo.util.InvalidAboutAttributeException;
+import com.demo.util.InvalidBirthdayAttributeException;
+import com.demo.util.InvalidNameAttributeException;
 import com.demo.util.RequiredAttributeException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -20,6 +24,11 @@ import javax.faces.bean.ManagedProperty;
 @ApplicationScoped
 public class CustomerServiceImpl implements ICustomerService {
 
+    public final static int MIN_LENGTH_NAME = 5;
+    public final static int MAX_LENGTH_NAME = 30;
+    public final static int MAX_LENGTH_ABOUT = 250;
+    public final static int ADULT_AGE = 18;
+    
     @ManagedProperty("#{customerDAO}")
     private ICrudDAO<Customer, Integer> dao;
 
@@ -80,10 +89,28 @@ public class CustomerServiceImpl implements ICustomerService {
     }
 
     @Override
-    public Customer update(Customer entity) throws GenreNotEditableException {
+    public Customer update(Customer entity) throws Exception {
         Customer ret = this.dao.findById(entity.getId());
         if (isChangingGender(entity)) {
             throw new GenreNotEditableException("Trying to change the gender of a customer");
+        } else if (entity.getName().length() <= MIN_LENGTH_NAME) {
+            throw new InvalidNameAttributeException("Trying to put a length Name less than 5!");
+        } else if (entity.getName().length() >= MAX_LENGTH_NAME) {
+            throw new InvalidNameAttributeException("Trying to put a length Name higher than 30!");
+        } else if (entity.getBirthday() == null) {
+            throw new InvalidBirthdayAttributeException("Trying to put a null Birthday!");
+        } else if (entity.getAbout().length() > 250) {
+            throw new InvalidAboutAttributeException("Trying to put a length About higher than 250!");
+        } else if (entity.getCard() == null) {
+            throw new RequiredAttributeException("Trying to put a null Card!");
+        } else if (entity.getMailingList() == null) {
+            throw new RequiredAttributeException("Trying to put a null Mailing List!");
+        } else if (entity.getBirthday() == null) {
+            throw new RequiredAttributeException("Trying to put a null Birthday!");
+        } else if (isNotAdult(entity)) {
+            throw new InvalidBirthdayAttributeException("Trying to put a underage customer!");
+        } else if (isNotValidEmail(entity)) {
+            throw new InvalidBirthdayAttributeException("Trying to put a invalid eMail!");
         } else {
             ret = this.dao.update(entity);
         }
@@ -101,5 +128,30 @@ public class CustomerServiceImpl implements ICustomerService {
     private boolean isChangingGender(Customer customer) {
         return findById(customer.getId()).getGender() != customer.getGender()
                 ? true : false;
+    }
+    
+    private boolean isNotAdult(Customer customer) {
+        int factor = 0;
+        Calendar cal = Calendar.getInstance();
+        Calendar today = Calendar.getInstance();
+        cal.setTime(customer.getBirthday());
+        
+        if (today.get(Calendar.DAY_OF_YEAR) < cal.get(Calendar.DAY_OF_YEAR)) {
+            factor = -1;
+        }
+        
+        int age = today.get(Calendar.YEAR) - cal.get(Calendar.YEAR) + factor;
+        
+        if (age >= ADULT_AGE) {
+            return false;
+        }
+        return true;       
+    }
+    
+    private boolean isNotValidEmail(Customer customer) {      
+        if (!customer.geteMail().matches(".+@.+\\..+")) {
+            return true;
+        }
+        return false;
     }
 }

@@ -25,5 +25,5 @@ public abstract interface ICustomerService
 
     public abstract void save(Customer entity) throws RequiredAttributeException;
 
-    public abstract Customer update(Customer entity) throws GenreNotEditableException;
+    public abstract Customer update(Customer entity) throws Exception;
 }

@@ -137,7 +137,7 @@ public class CustomerBean implements Serializable {
         if (this.update) {
             try {
                 this.service.update(this.selectedCustomer);
-            } catch (GenreNotEditableException ex) {
+            } catch (Exception ex) {
                 Logger.getLogger(CustomerBean.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
