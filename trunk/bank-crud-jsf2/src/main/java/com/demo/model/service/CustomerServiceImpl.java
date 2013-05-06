@@ -68,7 +68,11 @@ public class CustomerServiceImpl implements ICustomerService {
 
     @Override
     public void save(Customer entity) throws RequiredAttributeException {
-        this.dao.save(entity);
+        try {
+            this.dao.save(entity);
+        } catch (Exception ex) {
+            throw new RequiredAttributeException("Trying to persist an object without one or many empty (null) attributes");
+        }
     }
 
     public void setDao(ICrudDAO<Customer, Integer> dao) {
@@ -88,12 +92,14 @@ public class CustomerServiceImpl implements ICustomerService {
 
     /**
      * Detect if the customer's gender is gone to be changed.
+     *
      * @param customer the customer to be analized
-     * @return <code>true</code> if the customer's gender is gone to be changed, 
+     * @return
+     * <code>true</code> if the customer's gender is gone to be changed,
      * <code>false</code> in other case.
      */
     private boolean isChangingGender(Customer customer) {
-        return findById(customer.getId()).getGender() != customer.getGender() ? 
-                true : false;
+        return findById(customer.getId()).getGender() != customer.getGender()
+                ? true : false;
     }
 }
