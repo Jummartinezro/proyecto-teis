@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.demo.pojo.Customer;
 import com.demo.util.GenreNotEditableException;
+import com.demo.util.RequiredAttributeException;
 
 public abstract interface ICustomerService
 {
@@ -22,7 +23,7 @@ public abstract interface ICustomerService
 
     public abstract Customer findById(Integer id);
 
-    public abstract void save(Customer entity);
+    public abstract void save(Customer entity) throws RequiredAttributeException;
 
     public abstract Customer update(Customer entity) throws GenreNotEditableException;
 }
