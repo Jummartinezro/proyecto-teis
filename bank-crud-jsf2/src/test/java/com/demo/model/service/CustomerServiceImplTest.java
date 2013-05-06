@@ -9,6 +9,7 @@ import com.demo.pojo.Card;
 import com.demo.pojo.Customer;
 import com.demo.pojo.Gender;
 import com.demo.util.GenreNotEditableException;
+import com.demo.util.RequiredAttributeException;
 import java.util.Calendar;
 import java.util.Date;
 import static junit.framework.Assert.assertEquals;
@@ -238,21 +239,21 @@ public class CustomerServiceImplTest extends TestCase {
             fail("Is supposed that the Genre has not changed");
         }
     }
-    
+
     public void testValidacionDeCampos() {
-        
+
         Calendar fechaA = Calendar.getInstance();
         fechaA.setTimeInMillis(0);
         fechaA.set(Calendar.YEAR, 1985);
         fechaA.set(Calendar.MONTH, Calendar.JUNE);
         fechaA.set(Calendar.DATE, 10);
-               
-       //NAME
-        
+
+        //NAME
+
         Customer customerShortName = new Customer("Juan",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, "Description",
                 Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
- 
+
         customerShortName.setId(customer.getId());
         try {
             customerServiceImpl.update(customerShortName);
@@ -260,7 +261,7 @@ public class CustomerServiceImplTest extends TestCase {
         } catch (Exception e) {
             assertEquals("¡Trying to put a length name less than 5!", e.getMessage());
         }
-        
+
         Customer customerGoodName = new Customer("Carlos Andres Gil",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, "Description",
                 Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
@@ -272,11 +273,11 @@ public class CustomerServiceImplTest extends TestCase {
         } catch (Exception e) {
             System.out.println("¡Unexpected error!");
         }
-        
+
         Customer customerLongName = new Customer("Adriana Carolina Otálora Quecan",
                 new Date(fechaA.getTimeInMillis()), Gender.FEMALE, "Description",
                 Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
-        
+
         customerLongName.setId(customer.getId());
         try {
             customerServiceImpl.update(customerLongName);
@@ -284,9 +285,9 @@ public class CustomerServiceImplTest extends TestCase {
         } catch (Exception e) {
             assertEquals("¡Trying to put a length name higher than 30!", e.getMessage());
         }
-        
+
         //BIRTHDAY
-        
+
         Calendar fecha2 = Calendar.getInstance();
         Calendar fecha3 = Calendar.getInstance();
         fecha1.set(Calendar.YEAR, 1980);
@@ -298,11 +299,11 @@ public class CustomerServiceImplTest extends TestCase {
         fecha3.set(Calendar.YEAR, 1991);
         fecha3.set(Calendar.MONTH, Calendar.FEBRUARY);
         fecha3.set(Calendar.DATE, 31);
-        
+
         Customer adultCustomer = new Customer("Customer de Validación",
                 new Date(fecha1.getTimeInMillis()), Gender.MALE, "Description",
                 Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
-        
+
         adultCustomer.setId(customer.getId());
         try {
             customerServiceImpl.update(adultCustomer);
@@ -310,23 +311,23 @@ public class CustomerServiceImplTest extends TestCase {
         } catch (Exception e) {
             System.out.println("¡Unexpected error!");
         }
-        
+
         Customer underageCustomer = new Customer("Customer de Validación",
                 new Date(fecha2.getTimeInMillis()), Gender.MALE, "Description",
                 Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
-        
+
         underageCustomer.setId(customer.getId());
         try {
             customerServiceImpl.update(underageCustomer);
             fail("A Exception was expected");
         } catch (Exception e) {
-            assertEquals("¡Trying to put a underage customer!", e.getMessage());         
+            assertEquals("¡Trying to put a underage customer!", e.getMessage());
         }
-        
+
         Customer nullBirthdayCustomer = new Customer("Customer de Validación",
                 null, Gender.MALE, "Description",
                 Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
-        
+
         nullBirthdayCustomer.setId(customer.getId());
         try {
             customerServiceImpl.update(underageCustomer);
@@ -334,27 +335,27 @@ public class CustomerServiceImplTest extends TestCase {
         } catch (Exception e) {
             assertEquals("¡Trying to put a null birthday!", e.getMessage());
         }
-        
+
         //GENRE
-        
+
         Customer nullGenreCustomer = new Customer("Customer de Validación",
                 new Date(fechaA.getTimeInMillis()), null, "Description",
                 Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
-        
+
         nullGenreCustomer.setId(customer.getId());
         try {
             customerServiceImpl.update(nullGenreCustomer);
             fail("A Exception was expected");
         } catch (Exception e) {
-            assertEquals("¡Trying to put a null genre!", e.getMessage());           
+            assertEquals("¡Trying to put a null genre!", e.getMessage());
         }
-        
+
         //ABOUT
-        
+
         Customer goodAboutCustomer = new Customer("Customer de Validación",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, "Descripción de este cliente",
                 Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
-        
+
         goodAboutCustomer.setId(customer.getId());
         try {
             customerServiceImpl.update(goodAboutCustomer);
@@ -362,7 +363,7 @@ public class CustomerServiceImplTest extends TestCase {
         } catch (Exception e) {
             System.out.println("¡Unexpected error!");
         }
-        
+
         Customer longAboutCustomer = new Customer("Customer de Validación",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, "Lorem ipsum ad his "
                 + "scripta blandit partiendo, eum fastidii accumsan euripidis "
@@ -377,7 +378,7 @@ public class CustomerServiceImplTest extends TestCase {
                 + "accommodare. Sed at malis omnesque delicata, usu et iusto zzril "
                 + "meliore. Dicunt maiorum eloquentiam cum cu, sit summo dolor "
                 + "essent te.", Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
-        
+
         longAboutCustomer.setId(customer.getId());
         try {
             customerServiceImpl.update(longAboutCustomer);
@@ -385,11 +386,11 @@ public class CustomerServiceImplTest extends TestCase {
         } catch (Exception e) {
             assertEquals("¡Trying to put a length About higher than 250!", e.getMessage());
         }
-        
+
         Customer nullAboutCustomer = new Customer("Customer de Validación",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, null,
                 Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
-        
+
         nullAboutCustomer.setId(customer.getId());
         try {
             customerServiceImpl.update(nullAboutCustomer);
@@ -397,11 +398,11 @@ public class CustomerServiceImplTest extends TestCase {
         } catch (Exception e) {
             assertEquals("¡Trying to put a null About!", e.getMessage());
         }
-        
+
         Customer emptyAboutCustomer = new Customer("Customer de Validación",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, "",
                 Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
-        
+
         emptyAboutCustomer.setId(customer.getId());
         try {
             customerServiceImpl.update(nullAboutCustomer);
@@ -409,13 +410,13 @@ public class CustomerServiceImplTest extends TestCase {
         } catch (Exception e) {
             System.out.println("¡Unexpected error!");
         }
-        
+
         //CARD
-        
+
         Customer cardCustomer = new Customer("Customer de Validación",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, "Decription",
                 Card.AMEX, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
-        
+
         cardCustomer.setId(customer.getId());
         try {
             customerServiceImpl.update(cardCustomer);
@@ -423,11 +424,11 @@ public class CustomerServiceImplTest extends TestCase {
         } catch (Exception e) {
             System.out.println("¡Unexpected error!");
         }
-        
+
         Customer nullCardCustomer = new Customer("Customer de Validación",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, "Decription",
                 null, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
-        
+
         nullCardCustomer.setId(customer.getId());
         try {
             customerServiceImpl.update(nullCardCustomer);
@@ -435,13 +436,13 @@ public class CustomerServiceImplTest extends TestCase {
         } catch (Exception e) {
             assertEquals("¡Trying to put a null Card!", e.getMessage());
         }
-        
+
         //MAILING LIST
-        
+
         Customer trueMailingListCustomer = new Customer("Customer de Validación",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, "Decription",
                 null, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
-        
+
         trueMailingListCustomer.setId(customer.getId());
         try {
             customerServiceImpl.update(trueMailingListCustomer);
@@ -450,11 +451,11 @@ public class CustomerServiceImplTest extends TestCase {
         } catch (Exception e) {
             System.out.println("¡Unexpected error!");
         }
-        
+
         Customer falseMailingListCustomer = new Customer("Customer de Validación",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, "Decription",
                 null, Integer.valueOf(1), Boolean.FALSE, Boolean.TRUE, "customer@teis.com");
-        
+
         falseMailingListCustomer.setId(customer.getId());
         try {
             customerServiceImpl.update(falseMailingListCustomer);
@@ -463,11 +464,11 @@ public class CustomerServiceImplTest extends TestCase {
         } catch (Exception e) {
             System.out.println("¡Unexpected error!");
         }
-        
+
         Customer nullMailingListCustomer = new Customer("Customer de Validación",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, "Decription",
                 null, Integer.valueOf(1), null, Boolean.TRUE, "customer@teis.com");
-        
+
         nullMailingListCustomer.setId(customer.getId());
         try {
             customerServiceImpl.update(nullMailingListCustomer);
@@ -475,11 +476,11 @@ public class CustomerServiceImplTest extends TestCase {
         } catch (Exception e) {
             assertEquals("¡Trying to put a null Mailing List!", e.getMessage());
         }
-        
+
         Customer invalidEmail1Customer = new Customer("Customer de Validación",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, "Decription",
                 null, Integer.valueOf(1), null, Boolean.TRUE, "abc@def");
-        
+
         invalidEmail1Customer.setId(customer.getId());
         try {
             customerServiceImpl.update(invalidEmail1Customer);
@@ -487,11 +488,11 @@ public class CustomerServiceImplTest extends TestCase {
         } catch (Exception e) {
             assertEquals("¡Trying to put a invalid eMail!", e.getMessage());
         }
-        
+
         Customer invalidEmail2Customer = new Customer("Customer de Validación",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, "Decription",
                 null, Integer.valueOf(1), null, Boolean.TRUE, "abc.efg");
-        
+
         invalidEmail2Customer.setId(customer.getId());
         try {
             customerServiceImpl.update(invalidEmail2Customer);
@@ -499,11 +500,11 @@ public class CustomerServiceImplTest extends TestCase {
         } catch (Exception e) {
             assertEquals("¡Trying to put a invalid eMail!", e.getMessage());
         }
-        
+
         Customer invalidEmail3Customer = new Customer("Customer de Validación",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, "Decription",
                 null, Integer.valueOf(1), null, Boolean.TRUE, "abc");
-        
+
         invalidEmail3Customer.setId(customer.getId());
         try {
             customerServiceImpl.update(invalidEmail3Customer);
@@ -511,11 +512,11 @@ public class CustomerServiceImplTest extends TestCase {
         } catch (Exception e) {
             assertEquals("¡Trying to put a invalid eMail!", e.getMessage());
         }
-        
+
         Customer validEmailCustomer = new Customer("Customer de Validación",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, "Decription",
                 null, Integer.valueOf(1), null, Boolean.TRUE, "abc@def.ghi");
-        
+
         validEmailCustomer.setId(customer.getId());
         try {
             customerServiceImpl.update(validEmailCustomer);
@@ -523,6 +524,84 @@ public class CustomerServiceImplTest extends TestCase {
         } catch (Exception e) {
             System.out.println("¡Unexpected error!");
         }
+
+    }
+
+    public void testCamposObligatorios() {
+
+        //Instanciando al cliente por defecto
+        Customer customer = new Customer();
+        customer.setName("TestCustomer");
+        Calendar fecha1 = Calendar.getInstance();
+        fecha1.setTimeInMillis(0);
+        fecha1.set(Calendar.YEAR, 1990);
+        fecha1.set(Calendar.MONTH, Calendar.JANUARY);
+        fecha1.set(Calendar.DATE, 4);
+        customer.setBirthday(fecha1.getTime());
+        customer.setGender(Gender.MALE);
+        customer.setAbout("descripcion");
+        customer.setCard(Card.MASTERCARD);
+        customer.seteMail("abc@def.com");
+        customer.setMailingList(true);
+        customer.setNumberOfCards(2);
+        customer.setLicense(true);
+
+        //Test 1: Sin Nombre
+        customer.setName(null);
+        try {
+            customerServiceImpl.save(customer);
+            fail("A Exception was expected");
+        } catch (RequiredAttributeException e) {
+            assertEquals("Trying to persist an object without one or many empty (null) attributes", e.getMessage());
+        }
+
+        customer.setName("TestCustomer");
+        //Test 2: Sin cumple
+        customer.setBirthday(null);
+        try {
+            customerServiceImpl.save(customer);
+            fail("A Exception was expected");
+        } catch (RequiredAttributeException e) {
+            assertEquals("Trying to persist an object without one or many empty (null) attributes", e.getMessage());
+        }
         
+        customer.setBirthday(fecha1.getTime());
+        //Test 3: Genero indefinido
+        customer.setGender(null);
+        try {
+            customerServiceImpl.save(customer);
+            fail("A Exception was expected");
+        } catch (RequiredAttributeException e) {
+            assertEquals("Trying to persist an object without one or many empty (null) attributes", e.getMessage());
+        }
+        customer.setGender(Gender.MALE);
+        //Test 4: Tarjeta nula
+        customer.setCard(null);
+        try {
+            customerServiceImpl.save(customer);
+            fail("A Exception was expected");
+        } catch (RequiredAttributeException e) {
+            assertEquals("Trying to persist an object without one or many empty (null) attributes", e.getMessage());
+        }
+        customer.setCard(Card.MASTERCARD);
+        //Test 5: Sin direccion de contacto
+        customer.seteMail(null);
+        try {
+            customerServiceImpl.save(customer);
+            fail("A Exception was expected");
+        } catch (RequiredAttributeException e) {
+            assertEquals("Trying to persist an object without one or many empty (null) attributes", e.getMessage());
+        }
+        customer.seteMail("abc@def.com");
+        //Test 6: Vacio Completamente
+
+        customer = new Customer();
+        try {
+            customerServiceImpl.save(customer);
+            fail("A Exception was expected");
+        } catch (RequiredAttributeException e) {
+            assertEquals("Trying to persist an object without one or many empty (null) attributes", e.getMessage());
+        }
+
     }
 }
