@@ -20,13 +20,13 @@ import junit.framework.TestCase;
  *
  * @author juanmanuelmartinezromero
  */
-public class CustomerServiceImplTest extends TestCase {
+public class CustomerServiceImplActualizacionTest extends TestCase {
 
     CustomerServiceImpl customerServiceImpl;
     Customer customer;
     Calendar fecha1;
 
-    public CustomerServiceImplTest(String testName) {
+    public CustomerServiceImplActualizacionTest(String testName) {
         super(testName);
     }
 
@@ -205,7 +205,7 @@ public class CustomerServiceImplTest extends TestCase {
             customerServiceImpl.update(nullGenreCustomer);
             fail("A Exception was expected");
         } catch (Exception e) {
-            assertEquals("Trying to change the gender of a customer", e.getMessage());           
+            assertEquals("Trying to put a null gender", e.getMessage());
         }
 
         //ABOUT
@@ -337,7 +337,7 @@ public class CustomerServiceImplTest extends TestCase {
         }
 
         //EMAIL
-        
+
         Customer invalidEmail1Customer = new Customer("Customer de ValidaciÛn",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, "Decription",
                 Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "abc@def");
@@ -407,62 +407,140 @@ public class CustomerServiceImplTest extends TestCase {
         customer.setNumberOfCards(2);
         customer.setLicense(true);
 
+
+        //Intentar guardar el cliente
+        try {
+            customerServiceImpl.save(customer);
+        } catch (Exception e) {
+            fail("Can't save customer");
+
+        }
+
         //Test 1: Sin Nombre
         customer.setName(null);
         try {
-            customerServiceImpl.save(customer);
-            fail("A Exception was expected");
-        } catch (RequiredAttributeException e) {
-            assertEquals("Trying to persist an object without one or many empty (null) attributes", e.getMessage());
+            customerServiceImpl.update(customer);
+            fail("An Exception was expected");
+        } catch (Exception e) {
+            assertEquals("Trying to put a null name", e.getMessage());
         }
 
         customer.setName("TestCustomer");
         //Test 2: Sin cumple
         customer.setBirthday(null);
         try {
-            customerServiceImpl.save(customer);
-            fail("A Exception was expected");
-        } catch (RequiredAttributeException e) {
-            assertEquals("Trying to persist an object without one or many empty (null) attributes", e.getMessage());
+            customerServiceImpl.update(customer);
+            fail("An Exception was expected");
+        } catch (Exception e) {
+            assertEquals("Trying to put a null Birthday!", e.getMessage());
         }
-        
+
         customer.setBirthday(fecha1.getTime());
         //Test 3: Genero indefinido
         customer.setGender(null);
         try {
-            customerServiceImpl.save(customer);
-            fail("A Exception was expected");
-        } catch (RequiredAttributeException e) {
-            assertEquals("Trying to persist an object without one or many empty (null) attributes", e.getMessage());
+            customerServiceImpl.update(customer);
+            fail("An Exception was expected");
+        } catch (Exception e) {
+            assertEquals("Trying to put a null gender", e.getMessage());
         }
         customer.setGender(Gender.MALE);
         //Test 4: Tarjeta nula
         customer.setCard(null);
         try {
-            customerServiceImpl.save(customer);
-            fail("A Exception was expected");
-        } catch (RequiredAttributeException e) {
-            assertEquals("Trying to persist an object without one or many empty (null) attributes", e.getMessage());
+            customerServiceImpl.update(customer);
+            fail("An Exception was expected");
+        } catch (Exception e) {
+            assertEquals("Trying to put a null Card!", e.getMessage());
         }
         customer.setCard(Card.MASTERCARD);
         //Test 5: Sin direccion de contacto
         customer.seteMail(null);
         try {
-            customerServiceImpl.save(customer);
-            fail("A Exception was expected");
-        } catch (RequiredAttributeException e) {
-            assertEquals("Trying to persist an object without one or many empty (null) attributes", e.getMessage());
+            customerServiceImpl.update(customer);
+            fail("An Exception was expected");
+        } catch (Exception e) {
+            assertEquals("Trying to put a null Mail!", e.getMessage());
         }
         customer.seteMail("abc@def.com");
-        //Test 6: Vacio Completamente
+        //Test 6: Sin mailinglist
+        customer.setMailingList(null);
+        try {
+            customerServiceImpl.update(customer);
+            fail("An Exception was expected");
+        } catch (Exception e) {
+            assertEquals("Trying to put a null Mailing List!", e.getMessage());
+        }
+        customer.setMailingList(true);
+        //Test 7: Vacio Completamente
 
         customer = new Customer();
         try {
-            customerServiceImpl.save(customer);
-            fail("A Exception was expected");
-        } catch (RequiredAttributeException e) {
-            assertEquals("Trying to persist an object without one or many empty (null) attributes", e.getMessage());
+            customerServiceImpl.update(customer);
+            fail("An Exception was expected");
+        } catch (Exception e) {
+            // Un objeto vacio y sin campos no puede ser serializado y genera esta excepcion
+            assertEquals("id to load is required for loading", e.getMessage());
         }
+
+    }
+
+    public void testCamposNoObligatorios() {
+        
+        
+        //Instanciando al cliente por defecto
+        Customer customer = new Customer();
+        customer.setName("TestCustomer");
+        Calendar fecha1 = Calendar.getInstance();
+        fecha1.setTimeInMillis(0);
+        fecha1.set(Calendar.YEAR, 1990);
+        fecha1.set(Calendar.MONTH, Calendar.JANUARY);
+        fecha1.set(Calendar.DATE, 4);
+        customer.setBirthday(fecha1.getTime());
+        customer.setGender(Gender.MALE);
+        customer.setAbout("descripcion");
+        customer.setCard(Card.MASTERCARD);
+        customer.seteMail("abc@def.com");
+        customer.setMailingList(true);
+        customer.setNumberOfCards(2);
+        customer.setLicense(true);
+
+
+        //Intentar guardar el cliente
+        try {
+            customerServiceImpl.save(customer);
+        } catch (RequiredAttributeException e) {
+            fail("Can't save customer");
+
+        }
+
+        //Test 1: About
+        customer.setAbout(null);
+        try {
+            customerServiceImpl.update(customer);
+
+        } catch (Exception e) {
+            fail("An Exception was not expected" + e.toString());
+        }
+
+        customer.setAbout("Descripción");
+
+                
+        
+        
+        //Test 2: Licencia
+
+        customer.setLicense(null);
+        try {
+            customerServiceImpl.update(customer);
+
+        } catch (Exception e) {
+            fail("An Exception was not expected" + e.toString());
+        }
+        customer.setLicense(true);
+
+
+        
 
     }
 }
