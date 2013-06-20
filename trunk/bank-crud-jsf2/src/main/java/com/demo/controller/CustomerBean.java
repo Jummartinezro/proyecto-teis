@@ -22,11 +22,11 @@ import com.demo.model.service.IDataFactory;
 import com.demo.pojo.Card;
 import com.demo.pojo.Customer;
 import com.demo.pojo.Gender;
-import com.demo.util.GenreNotEditableException;
 import com.demo.util.RequiredAttributeException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.persistence.Transient;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 @ManagedBean(name = "customerBean")
 @SessionScoped
@@ -138,13 +138,34 @@ public class CustomerBean implements Serializable {
             try {
                 this.service.update(this.selectedCustomer);
             } catch (Exception ex) {
-                Logger.getLogger(CustomerBean.class.getName()).log(Level.SEVERE, null, ex);
+                FacesContext fc = FacesContext.getCurrentInstance();
+                String item = "";
+                String message = ex.getMessage();
+                if (message.equals("Trying to put a null gender") || message.equals("Trying to change the gender of a customer")) {
+                    item = "itemForm:gender";
+                } else if (message.equals("Trying to put a null name") || message.equals("Trying to put a length Name less than 5!")
+                        || message.equals("Trying to put a length Name higher than 30!")) {
+                    item = "itemForm:name";
+                } else if (message.equals("Trying to put a null Birthday!") || message.equals("Trying to put a underage customer!")) {
+                    item = "itemForm:birthday";
+                } else if (message.equals("Trying to put a length About higher than 250!")) {
+                    item = "itemForm:about";
+                } else if (message.equals("Trying to put a null Card!")) {
+                    item = "itemForm:card";
+                } else if (message.equals("Trying to put a null Mailing List!")) {
+                    item = "itemForm:mailingList";
+                } else if (message.equals("Trying to put a null Mail!") || message.equals("Trying to put a invalid eMail!")) {
+                    item = "itemForm:email";
+                }
+                fc.addMessage(item, new FacesMessage(ex.getMessage()));
+                return;
             }
         } else {
             try {
                 this.service.save(this.selectedCustomer);
             } catch (RequiredAttributeException ex) {
                 Logger.getLogger(CustomerBean.class.getName()).log(Level.SEVERE, null, ex);
+                return;
             }
         }
 
