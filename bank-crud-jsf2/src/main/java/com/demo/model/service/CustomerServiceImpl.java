@@ -92,9 +92,9 @@ public class CustomerServiceImpl implements ICustomerService {
             throw new GenreNotEditableException("Trying to change the gender of a customer");
         } else if (entity.getName() == null) {
             throw new RequiredAttributeException("Trying to put a null name");
-        } else if (entity.getName().length() <= MIN_LENGTH_NAME) {
+        } else if (entity.getName().length() < MIN_LENGTH_NAME) {
             throw new InvalidNameAttributeException("Trying to put a length Name less than 5!");
-        } else if (entity.getName().length() >= MAX_LENGTH_NAME) {
+        } else if (entity.getName().length() > MAX_LENGTH_NAME) {
             throw new InvalidNameAttributeException("Trying to put a length Name higher than 30!");
         } else if (entity.getBirthday() == null) {
             throw new InvalidBirthdayAttributeException("Trying to put a null Birthday!");
