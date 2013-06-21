@@ -52,8 +52,7 @@ public class CustomerServiceImplActualizacionTest extends TestCase {
     }
 
     /**
-     * Test the action ocurred when the genre of a customer is gone to be
-     * changed
+     * Test the action ocurred when the genre of a customer is gone to be changed
      */
     public void testSexoNoModificable() {
         Customer customer2 = new Customer("Customer 2",
@@ -98,15 +97,12 @@ public class CustomerServiceImplActualizacionTest extends TestCase {
         }
     }
 
-    public void testValidacionDeCampos() {
-
+    public void testLogitudMenorNombre() {
         Calendar fechaA = Calendar.getInstance();
         fechaA.setTimeInMillis(0);
         fechaA.set(Calendar.YEAR, 1985);
         fechaA.set(Calendar.MONTH, Calendar.JUNE);
         fechaA.set(Calendar.DATE, 10);
-
-        //NAME
 
         Customer customerShortName = new Customer("Juan",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, "Description",
@@ -119,7 +115,14 @@ public class CustomerServiceImplActualizacionTest extends TestCase {
         } catch (Exception e) {
             assertEquals("Trying to put a length Name less than 5!", e.getMessage());
         }
+    }
 
+    public void testLongitudCorrectaNombre() {
+        Calendar fechaA = Calendar.getInstance();
+        fechaA.setTimeInMillis(0);
+        fechaA.set(Calendar.YEAR, 1985);
+        fechaA.set(Calendar.MONTH, Calendar.JUNE);
+        fechaA.set(Calendar.DATE, 10);
         Customer customerGoodName = new Customer("Luis Gil",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, "Description",
                 Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
@@ -131,7 +134,14 @@ public class CustomerServiceImplActualizacionTest extends TestCase {
         } catch (Exception e) {
             System.out.println("Unexpected error!");
         }
+    }
 
+    public void testLongitudMayorNombre() {
+        Calendar fechaA = Calendar.getInstance();
+        fechaA.setTimeInMillis(0);
+        fechaA.set(Calendar.YEAR, 1985);
+        fechaA.set(Calendar.MONTH, Calendar.JUNE);
+        fechaA.set(Calendar.DATE, 10);
         Customer customerLongName = new Customer("Carlos Ernesto MartÌnez RodrÌguez",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, "Description",
                 Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
@@ -143,21 +153,12 @@ public class CustomerServiceImplActualizacionTest extends TestCase {
         } catch (Exception e) {
             assertEquals("Trying to put a length Name higher than 30!", e.getMessage());
         }
+    }
 
-        //BIRTHDAY
-
-        Calendar fecha2 = Calendar.getInstance();
-        Calendar fecha3 = Calendar.getInstance();
+    public void testBithDayCorrecto() {
         fecha1.set(Calendar.YEAR, 1980);
         fecha1.set(Calendar.MONTH, Calendar.JULY);
         fecha1.set(Calendar.DATE, 19);
-        fecha2.set(Calendar.YEAR, 2000);
-        fecha2.set(Calendar.MONTH, Calendar.SEPTEMBER);
-        fecha2.set(Calendar.DATE, 30);
-        fecha3.set(Calendar.YEAR, 1991);
-        fecha3.set(Calendar.MONTH, Calendar.FEBRUARY);
-        fecha3.set(Calendar.DATE, 31);
-
         Customer adultCustomer = new Customer("Customer de ValidaciÛn",
                 new Date(fecha1.getTimeInMillis()), Gender.MALE, "Description",
                 Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
@@ -169,7 +170,13 @@ public class CustomerServiceImplActualizacionTest extends TestCase {
         } catch (Exception e) {
             System.out.println("Unexpected error!");
         }
+    }
 
+    public void testMenorEdad() {
+        Calendar fecha2 = Calendar.getInstance();
+        fecha2.set(Calendar.YEAR, 2000);
+        fecha2.set(Calendar.MONTH, Calendar.SEPTEMBER);
+        fecha2.set(Calendar.DATE, 30);
         Customer underageCustomer = new Customer("Customer de ValidaciÛn",
                 new Date(fecha2.getTimeInMillis()), Gender.MALE, "Description",
                 Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
@@ -181,34 +188,14 @@ public class CustomerServiceImplActualizacionTest extends TestCase {
         } catch (Exception e) {
             assertEquals("Trying to put a underage customer!", e.getMessage());
         }
+    }
 
-        Customer nullBirthdayCustomer = new Customer("Customer de ValidaciÛn",
-                null, Gender.MALE, "Description",
-                Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
-
-        nullBirthdayCustomer.setId(customer.getId());
-        try {
-            customerServiceImpl.update(nullBirthdayCustomer);
-            fail("A Exception was expected");
-        } catch (Exception e) {
-            assertEquals("Trying to put a null Birthday!", e.getMessage());
-        }
-
-        //GENRE
-
-        Customer nullGenreCustomer = new Customer("Customer de ValidaciÛn",
-                new Date(fechaA.getTimeInMillis()), null, "Description",
-                Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
-
-        nullGenreCustomer.setId(customer.getId());
-        try {
-            customerServiceImpl.update(nullGenreCustomer);
-            fail("A Exception was expected");
-        } catch (Exception e) {
-            assertEquals("Trying to put a null gender", e.getMessage());
-        }
-
-        //ABOUT
+    public void testLongitudCorrectaAbout() {
+        Calendar fechaA = Calendar.getInstance();
+        fechaA.setTimeInMillis(0);
+        fechaA.set(Calendar.YEAR, 1985);
+        fechaA.set(Calendar.MONTH, Calendar.JUNE);
+        fechaA.set(Calendar.DATE, 10);
 
         Customer goodAboutCustomer = new Customer("Customer de ValidaciÛn",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, "DescripciÛn de este cliente",
@@ -221,7 +208,14 @@ public class CustomerServiceImplActualizacionTest extends TestCase {
         } catch (Exception e) {
             System.out.println("Unexpected error!");
         }
+    }
 
+    public void testLogitudMayorAbout() {
+        Calendar fechaA = Calendar.getInstance();
+        fechaA.setTimeInMillis(0);
+        fechaA.set(Calendar.YEAR, 1985);
+        fechaA.set(Calendar.MONTH, Calendar.JUNE);
+        fechaA.set(Calendar.DATE, 10);
         Customer longAboutCustomer = new Customer("Customer de ValidaciÛn",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, "Lorem ipsum ad his "
                 + "scripta blandit partiendo, eum fastidii accumsan euripidis "
@@ -244,20 +238,14 @@ public class CustomerServiceImplActualizacionTest extends TestCase {
         } catch (Exception e) {
             assertEquals("Trying to put a length About higher than 250!", e.getMessage());
         }
+    }
 
-        Customer nullAboutCustomer = new Customer("Customer de ValidaciÛn",
-                new Date(fechaA.getTimeInMillis()), Gender.MALE, null,
-                Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
-
-        nullAboutCustomer.setId(customer.getId());
-        try {
-            customerServiceImpl.update(nullAboutCustomer);
-            System.out.println(customer.getAbout());
-            assertEquals(customerServiceImpl.findById(customer.getId()).getAbout(), nullAboutCustomer.getAbout());
-        } catch (Exception e) {
-            System.out.println("Unexpected error!");
-        }
-
+    public void testEmptyAbout() {
+        Calendar fechaA = Calendar.getInstance();
+        fechaA.setTimeInMillis(0);
+        fechaA.set(Calendar.YEAR, 1985);
+        fechaA.set(Calendar.MONTH, Calendar.JUNE);
+        fechaA.set(Calendar.DATE, 10);
         Customer emptyAboutCustomer = new Customer("Customer de ValidaciÛn",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, "",
                 Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
@@ -269,8 +257,14 @@ public class CustomerServiceImplActualizacionTest extends TestCase {
         } catch (Exception e) {
             System.out.println("Unexpected error!");
         }
+    }
 
-        //CARD
+    public void testValidCard() {
+        Calendar fechaA = Calendar.getInstance();
+        fechaA.setTimeInMillis(0);
+        fechaA.set(Calendar.YEAR, 1985);
+        fechaA.set(Calendar.MONTH, Calendar.JUNE);
+        fechaA.set(Calendar.DATE, 10);
 
         Customer cardCustomer = new Customer("Customer de ValidaciÛn",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, "Decription",
@@ -283,20 +277,14 @@ public class CustomerServiceImplActualizacionTest extends TestCase {
         } catch (Exception e) {
             System.out.println("Unexpected error!");
         }
+    }
 
-        Customer nullCardCustomer = new Customer("Customer de ValidaciÛn",
-                new Date(fechaA.getTimeInMillis()), Gender.MALE, "Description",
-                null, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
-
-        nullCardCustomer.setId(customer.getId());
-        try {
-            customerServiceImpl.update(nullCardCustomer);
-            fail("A Exception was expected");
-        } catch (Exception e) {
-            assertEquals("Trying to put a null Card!", e.getMessage());
-        }
-
-        //MAILING LIST
+    public void testTrueMailingList() {
+        Calendar fechaA = Calendar.getInstance();
+        fechaA.setTimeInMillis(0);
+        fechaA.set(Calendar.YEAR, 1985);
+        fechaA.set(Calendar.MONTH, Calendar.JUNE);
+        fechaA.set(Calendar.DATE, 10);
 
         Customer trueMailingListCustomer = new Customer("Customer de ValidaciÛn",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, "Decription",
@@ -310,7 +298,14 @@ public class CustomerServiceImplActualizacionTest extends TestCase {
         } catch (Exception e) {
             System.out.println("Unexpected error!");
         }
+    }
 
+    public void testFalseMailingList() {
+        Calendar fechaA = Calendar.getInstance();
+        fechaA.setTimeInMillis(0);
+        fechaA.set(Calendar.YEAR, 1985);
+        fechaA.set(Calendar.MONTH, Calendar.JUNE);
+        fechaA.set(Calendar.DATE, 10);
         Customer falseMailingListCustomer = new Customer("Customer de ValidaciÛn",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, "Decription",
                 Card.VISA, Integer.valueOf(1), Boolean.FALSE, Boolean.TRUE, "customer@teis.com");
@@ -323,20 +318,15 @@ public class CustomerServiceImplActualizacionTest extends TestCase {
         } catch (Exception e) {
             System.out.println("Unexpected error!");
         }
+    }
 
-        Customer nullMailingListCustomer = new Customer("Customer de ValidaciÛn",
-                new Date(fechaA.getTimeInMillis()), Gender.MALE, "Decription",
-                Card.VISA, Integer.valueOf(1), null, Boolean.TRUE, "customer@teis.com");
-
-        nullMailingListCustomer.setId(customer.getId());
-        try {
-            customerServiceImpl.update(nullMailingListCustomer);
-            fail("A Exception was expected");
-        } catch (Exception e) {
-            assertEquals("Trying to put a null Mailing List!", e.getMessage());
-        }
-
-        //EMAIL
+    public void testInvalidEmailCase1() {
+        //Case xxx@xxx
+        Calendar fechaA = Calendar.getInstance();
+        fechaA.setTimeInMillis(0);
+        fechaA.set(Calendar.YEAR, 1985);
+        fechaA.set(Calendar.MONTH, Calendar.JUNE);
+        fechaA.set(Calendar.DATE, 10);
 
         Customer invalidEmail1Customer = new Customer("Customer de ValidaciÛn",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, "Decription",
@@ -349,7 +339,15 @@ public class CustomerServiceImplActualizacionTest extends TestCase {
         } catch (Exception e) {
             assertEquals("Trying to put a invalid eMail!", e.getMessage());
         }
+    }
 
+    public void testInvalidEmailCase2() {
+        //Case xxx.xxx
+        Calendar fechaA = Calendar.getInstance();
+        fechaA.setTimeInMillis(0);
+        fechaA.set(Calendar.YEAR, 1985);
+        fechaA.set(Calendar.MONTH, Calendar.JUNE);
+        fechaA.set(Calendar.DATE, 10);
         Customer invalidEmail2Customer = new Customer("Customer de ValidaciÛn",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, "Decription",
                 Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "abc.efg");
@@ -361,7 +359,15 @@ public class CustomerServiceImplActualizacionTest extends TestCase {
         } catch (Exception e) {
             assertEquals("Trying to put a invalid eMail!", e.getMessage());
         }
+    }
 
+    public void testInvalidEmailCase3() {
+        //Case xxx
+        Calendar fechaA = Calendar.getInstance();
+        fechaA.setTimeInMillis(0);
+        fechaA.set(Calendar.YEAR, 1985);
+        fechaA.set(Calendar.MONTH, Calendar.JUNE);
+        fechaA.set(Calendar.DATE, 10);
         Customer invalidEmail3Customer = new Customer("Customer de ValidaciÛn",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, "Decription",
                 Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "abc");
@@ -373,7 +379,14 @@ public class CustomerServiceImplActualizacionTest extends TestCase {
         } catch (Exception e) {
             assertEquals("Trying to put a invalid eMail!", e.getMessage());
         }
+    }
 
+    public void testValidEmail() {
+        Calendar fechaA = Calendar.getInstance();
+        fechaA.setTimeInMillis(0);
+        fechaA.set(Calendar.YEAR, 1985);
+        fechaA.set(Calendar.MONTH, Calendar.JUNE);
+        fechaA.set(Calendar.DATE, 10);
         Customer validEmailCustomer = new Customer("Customer de ValidaciÛn",
                 new Date(fechaA.getTimeInMillis()), Gender.MALE, "Decription",
                 Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "abc@def.ghi");
@@ -385,14 +398,12 @@ public class CustomerServiceImplActualizacionTest extends TestCase {
         } catch (Exception e) {
             System.out.println("Unexpected error!");
         }
-
     }
+    
+    //Tests Campos Obligatorios
+    
+    public void testNullName() {
 
-    public void testCamposObligatorios() {
-
-        //Instanciando al cliente por defecto
-        Customer customer = new Customer();
-        customer.setName("TestCustomer");
         Calendar fecha1 = Calendar.getInstance();
         fecha1.setTimeInMillis(0);
         fecha1.set(Calendar.YEAR, 1990);
@@ -407,16 +418,6 @@ public class CustomerServiceImplActualizacionTest extends TestCase {
         customer.setNumberOfCards(2);
         customer.setLicense(true);
 
-
-        //Intentar guardar el cliente
-        try {
-            customerServiceImpl.save(customer);
-        } catch (Exception e) {
-            fail("Can't save customer");
-
-        }
-
-        //Test 1: Sin Nombre
         customer.setName(null);
         try {
             customerServiceImpl.update(customer);
@@ -424,37 +425,81 @@ public class CustomerServiceImplActualizacionTest extends TestCase {
         } catch (Exception e) {
             assertEquals("Trying to put a null name", e.getMessage());
         }
+    }
 
-        customer.setName("TestCustomer");
-        //Test 2: Sin cumple
-        customer.setBirthday(null);
+    public void testNullBirthDay() {
+        Customer nullBirthdayCustomer = new Customer("Customer de ValidaciÛn",
+                null, Gender.MALE, "Description",
+                Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
+
+        nullBirthdayCustomer.setId(customer.getId());
         try {
-            customerServiceImpl.update(customer);
-            fail("An Exception was expected");
+            customerServiceImpl.update(nullBirthdayCustomer);
+            fail("A Exception was expected");
         } catch (Exception e) {
             assertEquals("Trying to put a null Birthday!", e.getMessage());
         }
+    }
 
-        customer.setBirthday(fecha1.getTime());
-        //Test 3: Genero indefinido
-        customer.setGender(null);
+    public void testNullGenre() {
+        Calendar fechaA = Calendar.getInstance();
+        fechaA.setTimeInMillis(0);
+        fechaA.set(Calendar.YEAR, 1985);
+        fechaA.set(Calendar.MONTH, Calendar.JUNE);
+        fechaA.set(Calendar.DATE, 10);
+
+        Customer nullGenreCustomer = new Customer("Customer de ValidaciÛn",
+                new Date(fechaA.getTimeInMillis()), null, "Description",
+                Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
+
+        nullGenreCustomer.setId(customer.getId());
         try {
-            customerServiceImpl.update(customer);
-            fail("An Exception was expected");
+            customerServiceImpl.update(nullGenreCustomer);
+            fail("A Exception was expected");
         } catch (Exception e) {
             assertEquals("Trying to put a null gender", e.getMessage());
         }
-        customer.setGender(Gender.MALE);
-        //Test 4: Tarjeta nula
-        customer.setCard(null);
+    }
+
+    public void testNullCard() {
+        Calendar fechaA = Calendar.getInstance();
+        fechaA.setTimeInMillis(0);
+        fechaA.set(Calendar.YEAR, 1985);
+        fechaA.set(Calendar.MONTH, Calendar.JUNE);
+        fechaA.set(Calendar.DATE, 10);
+        Customer nullCardCustomer = new Customer("Customer de ValidaciÛn",
+                new Date(fechaA.getTimeInMillis()), Gender.MALE, "Description",
+                null, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
+
+        nullCardCustomer.setId(customer.getId());
         try {
-            customerServiceImpl.update(customer);
-            fail("An Exception was expected");
+            customerServiceImpl.update(nullCardCustomer);
+            fail("A Exception was expected");
         } catch (Exception e) {
             assertEquals("Trying to put a null Card!", e.getMessage());
         }
-        customer.setCard(Card.MASTERCARD);
-        //Test 5: Sin direccion de contacto
+    }
+
+    public void testNullMailingList() {
+        Calendar fechaA = Calendar.getInstance();
+        fechaA.setTimeInMillis(0);
+        fechaA.set(Calendar.YEAR, 1985);
+        fechaA.set(Calendar.MONTH, Calendar.JUNE);
+        fechaA.set(Calendar.DATE, 10);
+        Customer nullMailingListCustomer = new Customer("Customer de ValidaciÛn",
+                new Date(fechaA.getTimeInMillis()), Gender.MALE, "Decription",
+                Card.VISA, Integer.valueOf(1), null, Boolean.TRUE, "customer@teis.com");
+
+        nullMailingListCustomer.setId(customer.getId());
+        try {
+            customerServiceImpl.update(nullMailingListCustomer);
+            fail("A Exception was expected");
+        } catch (Exception e) {
+            assertEquals("Trying to put a null Mailing List!", e.getMessage());
+        }
+    }
+    
+     public void testNullEmail() {
         customer.seteMail(null);
         try {
             customerServiceImpl.update(customer);
@@ -462,34 +507,31 @@ public class CustomerServiceImplActualizacionTest extends TestCase {
         } catch (Exception e) {
             assertEquals("Trying to put a null Mail!", e.getMessage());
         }
-        customer.seteMail("abc@def.com");
-        //Test 6: Sin mailinglist
-        customer.setMailingList(null);
-        try {
-            customerServiceImpl.update(customer);
-            fail("An Exception was expected");
-        } catch (Exception e) {
-            assertEquals("Trying to put a null Mailing List!", e.getMessage());
-        }
-        customer.setMailingList(true);
-        //Test 7: Vacio Completamente
-
-        customer = new Customer();
-        try {
-            customerServiceImpl.update(customer);
-            fail("An Exception was expected");
-        } catch (Exception e) {
-            // Un objeto vacio y sin campos no puede ser serializado y genera esta excepcion
-            assertEquals("id to load is required for loading", e.getMessage());
-        }
-
     }
 
-    public void testCamposNoObligatorios() {
-        
-        
-        //Instanciando al cliente por defecto
-        Customer customer = new Customer();
+    //Tests Campos No Obligatorios
+    
+    public void testNullAbout() {
+        Calendar fechaA = Calendar.getInstance();
+        fechaA.setTimeInMillis(0);
+        fechaA.set(Calendar.YEAR, 1985);
+        fechaA.set(Calendar.MONTH, Calendar.JUNE);
+        fechaA.set(Calendar.DATE, 10);
+        Customer nullAboutCustomer = new Customer("Customer de ValidaciÛn",
+                new Date(fechaA.getTimeInMillis()), Gender.MALE, null,
+                Card.VISA, Integer.valueOf(1), Boolean.TRUE, Boolean.TRUE, "customer@teis.com");
+
+        nullAboutCustomer.setId(customer.getId());
+        try {
+            customerServiceImpl.update(nullAboutCustomer);
+            System.out.println(customer.getAbout());
+            assertEquals(customerServiceImpl.findById(customer.getId()).getAbout(), nullAboutCustomer.getAbout());
+        } catch (Exception e) {
+            System.out.println("Unexpected error!");
+        }
+    }
+
+    public void testNullLicence() {
         customer.setName("TestCustomer");
         Calendar fecha1 = Calendar.getInstance();
         fecha1.setTimeInMillis(0);
@@ -503,44 +545,26 @@ public class CustomerServiceImplActualizacionTest extends TestCase {
         customer.seteMail("abc@def.com");
         customer.setMailingList(true);
         customer.setNumberOfCards(2);
-        customer.setLicense(true);
-
-
-        //Intentar guardar el cliente
-        try {
-            customerServiceImpl.save(customer);
-        } catch (RequiredAttributeException e) {
-            fail("Can't save customer");
-
-        }
-
-        //Test 1: About
-        customer.setAbout(null);
-        try {
-            customerServiceImpl.update(customer);
-
-        } catch (Exception e) {
-            fail("An Exception was not expected" + e.toString());
-        }
-
-        customer.setAbout("Descripción");
-
-                
-        
-        
-        //Test 2: Licencia
 
         customer.setLicense(null);
         try {
             customerServiceImpl.update(customer);
-
         } catch (Exception e) {
             fail("An Exception was not expected" + e.toString());
         }
         customer.setLicense(true);
 
-
-        
-
     }
+
+    public void testNullAll() {
+        Customer customer = new Customer();
+        try {
+            customerServiceImpl.update(customer);
+            fail("An Exception was expected");
+        } catch (Exception e) {
+            // Un objeto vacio y sin campos no puede ser serializado y genera esta excepcion
+            assertEquals("id to load is required for loading", e.getMessage());
+        }
+    }
+    
 }
