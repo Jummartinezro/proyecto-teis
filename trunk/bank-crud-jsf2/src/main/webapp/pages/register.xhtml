@@ -39,7 +39,8 @@
                     <h:outputLabel for="gender"
                                    value="#{i18n['data.set.message.prefix']} #{i18n['customer.gender']}" />
                     <h:selectOneMenu id="gender"
-                                     value="#{customerBean.selectedCustomer.gender}" styleClass="text"
+                                     value="#{customerBean.selectedCustomer.gender}" 
+                                     styleClass="text"
                                      disabled="#{customerBean.update ? true : false}">
                         <f:selectItems value="#{customerBean.genderValues}" var="gender"
                                        itemLabel="#{i18n[gender.label]}" itemValue="#{gender}" />
