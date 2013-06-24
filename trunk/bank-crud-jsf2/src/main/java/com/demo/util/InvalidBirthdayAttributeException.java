@@ -9,7 +9,8 @@ package com.demo.util;
  * @author Johan
  */
 public class InvalidBirthdayAttributeException extends Exception {
+
     public InvalidBirthdayAttributeException(String msg) {
         super(msg);
-    }   
+    }
 }
