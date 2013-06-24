@@ -69,27 +69,27 @@ public class Customer implements Serializable {
         return eMail;
     }
 
-    public void seteMail(String eMail) {
-        this.eMail = eMail;
+    public void seteMail(String settedmail) {
+        this.eMail = settedmail;
     }
 
     public Customer() {
         super();
     }
 
-    public Customer(String name, Date birthday, Gender gender, String about,
-            Card card, Integer numberOfCards, Boolean mailingList,
-            Boolean license, String eMail) {
+    public Customer(String settedName, Date settedBirthday, Gender settedGender, String settedAbout,
+            Card settedCard, Integer settedNumberOfCards, Boolean settedMailingList,
+            Boolean settedLicense, String settedEMail) {
         super();
-        this.name = name;
-        this.birthday = birthday;
-        this.gender = gender;
-        this.about = about;
-        this.card = card;
-        this.numberOfCards = numberOfCards;
-        this.mailingList = mailingList;
-        this.license = license;
-        this.eMail = eMail;
+        this.name = settedName;
+        this.birthday = settedBirthday;
+        this.gender = settedGender;
+        this.about = settedAbout;
+        this.card = settedCard;
+        this.numberOfCards = settedNumberOfCards;
+        this.mailingList = settedMailingList;
+        this.license = settedLicense;
+        this.eMail = settedEMail;
 
     }
 
@@ -213,40 +213,40 @@ public class Customer implements Serializable {
         return result;
     }
 
-    public void setAbout(String about) {
-        this.about = about;
+    public void setAbout(String settedAbout) {
+        this.about = settedAbout;
     }
 
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
+    public void setBirthday(Date settedBirthday) {
+        this.birthday = settedBirthday;
     }
 
-    public void setCard(Card card) {
-        this.card = card;
+    public void setCard(Card settedCard) {
+        this.card = settedCard;
     }
 
-    public void setGender(Gender gender) {
-        this.gender = gender;
+    public void setGender(Gender settedGender) {
+        this.gender = settedGender;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setId(Integer settedId) {
+        this.id = settedId;
     }
 
-    public void setLicense(Boolean license) {
-        this.license = license;
+    public void setLicense(Boolean settedLicense) {
+        this.license = settedLicense;
     }
 
-    public void setMailingList(Boolean mailingList) {
-        this.mailingList = mailingList;
+    public void setMailingList(Boolean settedMailingList) {
+        this.mailingList = settedMailingList;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String settedName) {
+        this.name = settedName;
     }
 
-    public void setNumberOfCards(Integer numberOfCards) {
-        this.numberOfCards = numberOfCards;
+    public void setNumberOfCards(Integer settedNumberOfCards) {
+        this.numberOfCards = settedNumberOfCards;
     }
 
     @Override

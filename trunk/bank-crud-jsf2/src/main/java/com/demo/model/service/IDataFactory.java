@@ -3,7 +3,7 @@
  */
 package com.demo.model.service;
 
-public interface IDataFactory
-{
-    public abstract void createData();
+public interface IDataFactory {
+
+    abstract void createData();
 }

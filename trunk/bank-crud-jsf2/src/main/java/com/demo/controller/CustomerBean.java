@@ -217,28 +217,28 @@ public class CustomerBean implements Serializable {
         return this.update;
     }
 
-    public void setDataFactory(IDataFactory dataFactory) {
-        this.dataFactory = dataFactory;
+    public void setDataFactory(IDataFactory settedDataFactory) {
+        this.dataFactory = settedDataFactory;
     }
 
-    public void setCount(long count) {
-        this.count = count;
+    public void setCount(long settedCount) {
+        this.count = settedCount;
     }
 
-    public void setCustomers(DataModel<Customer> customers) {
-        this.customers = customers;
+    public void setCustomers(DataModel<Customer> settedCustomers) {
+        this.customers = settedCustomers;
     }
 
-    public void setSelectedCustomer(Customer selectedCustomer) {
-        this.selectedCustomer = selectedCustomer;
+    public void setSelectedCustomer(Customer settedSelectedCustomer) {
+        this.selectedCustomer = settedSelectedCustomer;
     }
 
-    public void setService(ICustomerService service) {
-        this.service = service;
+    public void setService(ICustomerService settedService) {
+        this.service = settedService;
     }
 
-    public void setUpdate(boolean update) {
-        this.update = update;
+    public void setUpdate(boolean settedUpdate) {
+        this.update = settedUpdate;
     }
     // ---------------------------
     // Bean getters/setters end
