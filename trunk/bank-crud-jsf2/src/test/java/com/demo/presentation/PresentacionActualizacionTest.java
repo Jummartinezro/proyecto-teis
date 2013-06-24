@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.Select;
 
 public class PresentacionActualizacionTest {
 
-    private static final int DELAY = 50;
+    private static final int DELAY = 100;
     private static WebDriver driver;
     private static String baseUrl;
     private static StringBuffer verificationErrors = new StringBuffer();
@@ -20,7 +20,7 @@ public class PresentacionActualizacionTest {
     public static void setUpClass() {
         driver = new FirefoxDriver();
         baseUrl = "http://localhost:8084/";
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.get(baseUrl + "/bank-crud-jsf2/pages/register.jsf");
         try {
             revertChanges();
@@ -50,12 +50,6 @@ public class PresentacionActualizacionTest {
      */
     @Test
     public void testSexoNoModificable() throws Exception {
-//        Thread.sleep(1000);
-//        // Verifica que el campo gender sea editable
-//        assertTrue(driver.findElement(By.id("itemForm:gender")).isEnabled());
-//        // Detiene el hilo un momento
-
-        // Verifica que el campo gender no sea editable
         assertFalse(driver.findElement(By.id("itemForm:gender")).isEnabled());
         try {
             assertEquals("FEMALE", driver.findElement(By.id("itemForm:gender")).getAttribute("value"));
@@ -156,12 +150,26 @@ public class PresentacionActualizacionTest {
      * @throws InterruptedException cuando el hilo no puede ser pausado
      */
     @Test
-    public void testBithDayCorrecto() throws InterruptedException {
+    public void testBithdayCorrecto() throws InterruptedException {
         driver.findElement(By.id("itemForm:birthday")).clear();
         driver.findElement(By.id("itemForm:birthday")).sendKeys("19-07-1980");
         botonUpdate();
         assertEquals("Saturday, July 19, 1980", driver.findElement(By.xpath("//*[@id='listForm']/table[2]/tbody/tr[1]/td[3]")).getText());
         revertChanges();
+    }
+
+    /**
+     * Verifica que se haga la actualizacion cuando la fecha de nacimiento es
+     * correcta
+     *
+     * @throws InterruptedException cuando el hilo no puede ser pausado
+     */
+    @Test
+    public void testBirthdayIncorrecto() throws InterruptedException {
+        driver.findElement(By.id("itemForm:birthday")).clear();
+        driver.findElement(By.id("itemForm:birthday")).sendKeys("Invalid Date");
+        botonUpdate();
+        assertNotNull(driver.findElement(By.xpath("//*[@id='itemForm']/table/tbody/tr[2]/td[3]/span")));
     }
 
     /**
@@ -247,6 +255,53 @@ public class PresentacionActualizacionTest {
         new Select(driver.findElement(By.id("itemForm:card"))).selectByVisibleText("Amex");
         botonUpdate();
         assertEquals("Amex", driver.findElement(By.xpath("//*[@id='listForm']/table[2]/tbody/tr[1]/td[6]")).getText());
+        revertChanges();
+    }
+
+    /**
+     * Verifica que se haga la actualizacion cuando se le asigne un numero de 
+     * tarjetas correcto
+     * @throws InterruptedException
+     */
+    @Test
+    public void testNumberOfCardsCorrect() throws InterruptedException {
+        driver.findElement(By.id("itemForm:numberOfCards")).clear();
+        driver.findElement(By.id("itemForm:numberOfCards")).sendKeys("100");
+        botonUpdate();
+        assertEquals("100", driver.findElement(By.xpath("//*[@id='listForm']/table[2]/tbody/tr[1]/td[7]")).getText());
+        revertChanges();
+    }
+
+    /**
+     * Verifica que no se haga la actualizacion cuando se le asigne un numero de 
+     * tarjetas incorrecto
+     * @throws InterruptedException
+     */
+    @Test
+    public void testNumberOfCardsIncorrect() throws InterruptedException {
+        driver.findElement(By.id("itemForm:numberOfCards")).clear();
+        driver.findElement(By.id("itemForm:numberOfCards")).sendKeys("151");
+        botonUpdate();
+        assertNotNull(driver.findElement(By.xpath("//*[@id='itemForm']/table/tbody/tr[6]/td[3]/span")));
+        assertEquals("134", driver.findElement(By.xpath("//*[@id=\"listForm\"]/table[2]/tbody/tr[1]/td[7]")).getText());
+        
+        driver.findElement(By.id("itemForm:numberOfCards")).clear();
+        driver.findElement(By.id("itemForm:numberOfCards")).sendKeys("1nval1d Numb3r");
+        botonUpdate();
+        assertNotNull(driver.findElement(By.xpath("//*[@id='itemForm']/table/tbody/tr[6]/td[3]/span")));
+        assertEquals("134", driver.findElement(By.xpath("//*[@id=\"listForm\"]/table[2]/tbody/tr[1]/td[7]")).getText());
+    }
+
+    /**
+     * Verifica que se haga la actualizacion cuando se le asigne un numero de 
+     * tarjetas vacio
+     * @throws InterruptedException
+     */
+    @Test
+    public void testNumberOfCardsEmpty() throws InterruptedException {
+        driver.findElement(By.id("itemForm:numberOfCards")).clear();
+        botonUpdate();
+        assertEquals("", driver.findElement(By.xpath("//*[@id='listForm']/table[2]/tbody/tr[1]/td[7]")).getText());
         revertChanges();
     }
 
@@ -457,8 +512,8 @@ public class PresentacionActualizacionTest {
     }
 
     /**
-     * Valida que no se haga ninguna modificacion cuando se trata de
-     * modificar el campo nombre
+     * Valida que no se haga ninguna modificacion cuando se trata de modificar
+     * el campo nombre
      *
      * @param nombre nombre que se dispone a ser validado
      * @throws InterruptedException cuando el hilo no puede ser pausado
