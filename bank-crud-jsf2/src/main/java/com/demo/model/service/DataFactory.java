@@ -23,28 +23,24 @@ import com.demo.pojo.Gender;
 
 @ManagedBean(name = "dataFactory")
 @ApplicationScoped
-public class DataFactory implements IDataFactory
-{
+public class DataFactory implements IDataFactory {
+
     public static final int DEFAULT_DATA_SIZE = 10;
 
-    public static Boolean getRandomBoolean()
-    {
-        if (getRandomNumberOfCards() > 75)
-        {
+    public static Boolean getRandomBoolean() {
+        if (getRandomNumberOfCards() > 75) {
             return true;
         }
 
         return false;
     }
 
-    public static Card getRandomCard()
-    {
+    public static Card getRandomCard() {
         int size = Card.values().length;
         return Card.fromId((int) Math.floor(Math.random() * size));
     }
 
-    public static Date getRandomDate()
-    {
+    public static Date getRandomDate() {
         Calendar calendar = new GregorianCalendar();
         calendar.set((int) Math.floor(Math.random() * 50 + 1950),
                 (int) Math.floor(Math.random() * 12),
@@ -53,33 +49,27 @@ public class DataFactory implements IDataFactory
         return calendar.getTime();
     }
 
-    public static Gender getRandomGender()
-    {
+    public static Gender getRandomGender() {
         int size = Gender.values().length;
         return Gender.fromId((int) Math.floor(Math.random() * size));
     }
 
-    public static Integer getRandomNumberOfCards()
-    {
+    public static Integer getRandomNumberOfCards() {
         return (int) Math.floor(Math.random() * 151);
     }
     private EntityManager entityManager;
 
-    public DataFactory()
-    {
+    public DataFactory() {
         super();
     }
 
-    private void createCustomers()
-    {
+    private void createCustomers() {
         List<Customer> list = getRandomCustomerList(DEFAULT_DATA_SIZE);
 
         int index = 0;
         this.entityManager.getTransaction().begin();
-        for (Customer customer : list)
-        {
-            if (index % 20 == 0)
-            {
+        for (Customer customer : list) {
+            if (index % 20 == 0) {
                 this.entityManager.clear();
                 this.entityManager.flush();
             }
@@ -90,22 +80,18 @@ public class DataFactory implements IDataFactory
     }
 
     @Override
-    public void createData()
-    {
+    public void createData() {
         createCustomers();
     }
 
-    private List<Customer> getRandomCustomerList(int size)
-    {
-        if (size < 0)
-        {
+    private List<Customer> getRandomCustomerList(int size) {
+        if (size < 0) {
             return null;
         }
 
         List<Customer> list = new ArrayList<Customer>();
 
-        for (int i = 0; i < size; i++)
-        {
+        for (int i = 0; i < size; i++) {
             Customer customer = new Customer("name " + i, getRandomDate(),
                     getRandomGender(), "test info " + i, getRandomCard(),
                     getRandomNumberOfCards(), getRandomBoolean(), Boolean.TRUE, "random@mail.com");
@@ -117,10 +103,8 @@ public class DataFactory implements IDataFactory
     }
 
     @PostConstruct
-    public void postConstruct()
-    {
-        if (this.entityManager == null)
-        {
+    public void postConstruct() {
+        if (this.entityManager == null) {
             EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pu");
 
             this.entityManager = entityManagerFactory.createEntityManager();
@@ -128,8 +112,7 @@ public class DataFactory implements IDataFactory
     }
 
     @PreDestroy
-    public void preDestroy()
-    {
+    public void preDestroy() {
         this.entityManager = null;
     }
 }

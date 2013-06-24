@@ -9,21 +9,21 @@ import com.demo.pojo.Customer;
 import com.demo.util.GenreNotEditableException;
 import com.demo.util.RequiredAttributeException;
 
-public abstract interface ICustomerService
-{
-    public abstract long count();
+public abstract interface ICustomerService {
 
-    public abstract Customer create();
+    abstract long count();
 
-    public abstract void delete(Customer entity);
+    abstract Customer create();
 
-    public abstract int deleteAll();
+    abstract void delete(Customer entity);
 
-    public abstract List<Customer> findAll();
+    abstract int deleteAll();
 
-    public abstract Customer findById(Integer id);
+    abstract List<Customer> findAll();
 
-    public abstract void save(Customer entity) throws RequiredAttributeException;
+    abstract Customer findById(Integer id);
 
-    public abstract Customer update(Customer entity) throws Exception;
+    abstract void save(Customer entity) throws RequiredAttributeException;
+
+    abstract Customer update(Customer entity) throws Exception;
 }
