@@ -6,8 +6,8 @@ package com.demo.model.dao;
 import java.io.Serializable;
 import java.util.List;
 
-public abstract interface ICrudDAO<T, ID extends Serializable>
-{
+public abstract interface ICrudDAO<T, ID extends Serializable> {
+
     public abstract long count();
 
     public abstract T create();
