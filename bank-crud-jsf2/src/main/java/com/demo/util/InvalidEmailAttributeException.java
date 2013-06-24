@@ -9,8 +9,8 @@ package com.demo.util;
  * @author Johan
  */
 public class InvalidEmailAttributeException extends Exception {
-    
+
     public InvalidEmailAttributeException(String msg) {
         super(msg);
-    } 
+    }
 }

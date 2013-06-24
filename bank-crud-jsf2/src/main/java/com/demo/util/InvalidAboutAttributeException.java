@@ -9,7 +9,7 @@ package com.demo.util;
  * @author Johan
  */
 public class InvalidAboutAttributeException extends Exception {
-    
+
     public InvalidAboutAttributeException(String msg) {
         super(msg);
     }
