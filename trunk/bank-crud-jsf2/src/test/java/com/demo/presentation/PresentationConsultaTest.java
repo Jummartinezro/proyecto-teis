@@ -48,11 +48,12 @@ public class PresentationConsultaTest {
     @After
     public void tearDown() {
     }
+
     /**
      * Verifica que el conteo que muestra sea realmente el de la base de datos
      */
     @Test
-    public void testCount(){
+    public void testCount() {
         assertEquals("Count: 10", driver.findElement(By.xpath("//*[@id=\'listForm\']/table[1]/tbody/tr/td/span")).getText());
     }
 }

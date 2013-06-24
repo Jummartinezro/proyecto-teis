@@ -52,7 +52,8 @@ public class CustomerServiceImplActualizacionTest extends TestCase {
     }
 
     /**
-     * Test the action ocurred when the genre of a customer is gone to be changed
+     * Test the action ocurred when the genre of a customer is gone to be
+     * changed
      */
     public void testSexoNoModificable() {
         Customer customer2 = new Customer("Customer 2",
@@ -399,9 +400,8 @@ public class CustomerServiceImplActualizacionTest extends TestCase {
             System.out.println("Unexpected error!");
         }
     }
-    
+
     //Tests Campos Obligatorios
-    
     public void testNullName() {
 
         Calendar fecha1 = Calendar.getInstance();
@@ -498,8 +498,8 @@ public class CustomerServiceImplActualizacionTest extends TestCase {
             assertEquals("Trying to put a null Mailing List!", e.getMessage());
         }
     }
-    
-     public void testNullEmail() {
+
+    public void testNullEmail() {
         customer.seteMail(null);
         try {
             customerServiceImpl.update(customer);
@@ -510,7 +510,6 @@ public class CustomerServiceImplActualizacionTest extends TestCase {
     }
 
     //Tests Campos No Obligatorios
-    
     public void testNullAbout() {
         Calendar fechaA = Calendar.getInstance();
         fechaA.setTimeInMillis(0);
@@ -566,5 +565,4 @@ public class CustomerServiceImplActualizacionTest extends TestCase {
             assertEquals("id to load is required for loading", e.getMessage());
         }
     }
-    
 }
