@@ -259,8 +259,9 @@ public class PresentacionActualizacionTest {
     }
 
     /**
-     * Verifica que se haga la actualizacion cuando se le asigne un numero de 
+     * Verifica que se haga la actualizacion cuando se le asigne un numero de
      * tarjetas correcto
+     *
      * @throws InterruptedException
      */
     @Test
@@ -273,8 +274,9 @@ public class PresentacionActualizacionTest {
     }
 
     /**
-     * Verifica que no se haga la actualizacion cuando se le asigne un numero de 
+     * Verifica que no se haga la actualizacion cuando se le asigne un numero de
      * tarjetas incorrecto
+     *
      * @throws InterruptedException
      */
     @Test
@@ -284,7 +286,7 @@ public class PresentacionActualizacionTest {
         botonUpdate();
         assertNotNull(driver.findElement(By.xpath("//*[@id='itemForm']/table/tbody/tr[6]/td[3]/span")));
         assertEquals("134", driver.findElement(By.xpath("//*[@id=\"listForm\"]/table[2]/tbody/tr[1]/td[7]")).getText());
-        
+
         driver.findElement(By.id("itemForm:numberOfCards")).clear();
         driver.findElement(By.id("itemForm:numberOfCards")).sendKeys("1nval1d Numb3r");
         botonUpdate();
@@ -293,8 +295,9 @@ public class PresentacionActualizacionTest {
     }
 
     /**
-     * Verifica que se haga la actualizacion cuando se le asigne un numero de 
+     * Verifica que se haga la actualizacion cuando se le asigne un numero de
      * tarjetas vacio
+     *
      * @throws InterruptedException
      */
     @Test

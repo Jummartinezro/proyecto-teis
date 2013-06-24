@@ -100,19 +100,19 @@ public class CustomerServiceImplConsultaTest extends TestCase {
      * Test of findById method, of class CustomerServiceImpl.
      */
     public void testFindById() {
-        
+
         try {
             customerServiceImpl.findById(null);
             fail("A Exception was expected");
         } catch (Exception ex) {
             assertEquals("id to load is required for loading", ex.getMessage());
         }
-           
+
         Customer expResult = null;
         Customer result = customerServiceImpl.findById(-10);
         assertEquals(expResult, result);
-        
-        expResult = (Customer)listaClientes.get(0);
+
+        expResult = (Customer) listaClientes.get(0);
         result = customerServiceImpl.findById(1);
         assertEquals(expResult, result);
     }
