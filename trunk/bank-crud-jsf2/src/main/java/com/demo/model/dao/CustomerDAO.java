@@ -18,13 +18,12 @@ import com.demo.pojo.Customer;
 
 @ManagedBean(name = "customerDAO")
 @ApplicationScoped
-public class CustomerDAO implements ICrudDAO<Customer, Integer>
-{
+public class CustomerDAO implements ICrudDAO<Customer, Integer> {
+
     private EntityManager entityManager;
 
     @Override
-    public long count()
-    {
+    public long count() {
         Query query = this.entityManager.createNamedQuery("Customer.countAll");
 
         Number result = (Number) query.getSingleResult();
@@ -33,14 +32,12 @@ public class CustomerDAO implements ICrudDAO<Customer, Integer>
     }
 
     @Override
-    public Customer create()
-    {
+    public Customer create() {
         return new Customer();
     }
 
     @Override
-    public void delete(Customer entity)
-    {
+    public void delete(Customer entity) {
         this.entityManager.getTransaction().begin();
         entity = this.entityManager.merge(entity);
         this.entityManager.remove(entity);
@@ -48,8 +45,7 @@ public class CustomerDAO implements ICrudDAO<Customer, Integer>
     }
 
     @Override
-    public int deleteAll()
-    {
+    public int deleteAll() {
         Query query = this.entityManager.createNamedQuery("Customer.deleteAll");
 
         this.entityManager.getTransaction().begin();
@@ -61,8 +57,7 @@ public class CustomerDAO implements ICrudDAO<Customer, Integer>
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<Customer> findAll()
-    {
+    public List<Customer> findAll() {
         Query query = this.entityManager.createNamedQuery("Customer.findAll");
 
         List<Customer> result = query.getResultList();
@@ -71,18 +66,15 @@ public class CustomerDAO implements ICrudDAO<Customer, Integer>
     }
 
     @Override
-    public Customer findById(Integer id)
-    {
+    public Customer findById(Integer id) {
         Customer entity = this.entityManager.find(Customer.class, id);
 
         return entity;
     }
 
     @PostConstruct
-    public void postConstruct()
-    {
-        if (this.entityManager == null)
-        {
+    public void postConstruct() {
+        if (this.entityManager == null) {
             EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pu");
 
             this.entityManager = entityManagerFactory.createEntityManager();
@@ -90,22 +82,19 @@ public class CustomerDAO implements ICrudDAO<Customer, Integer>
     }
 
     @PreDestroy
-    public void preDestroy()
-    {
+    public void preDestroy() {
         this.entityManager = null;
     }
 
     @Override
-    public void save(Customer entity)
-    {
+    public void save(Customer entity) {
         this.entityManager.getTransaction().begin();
         this.entityManager.persist(entity);
         this.entityManager.getTransaction().commit();
     }
 
     @Override
-    public Customer update(Customer entity)
-    {
+    public Customer update(Customer entity) {
         this.entityManager.getTransaction().begin();
         entity = this.entityManager.merge(entity);
         this.entityManager.getTransaction().commit();
