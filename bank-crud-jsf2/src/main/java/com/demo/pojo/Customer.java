@@ -30,14 +30,26 @@ import javax.validation.constraints.Size;
     @javax.persistence.NamedQuery(name = "Customer.deleteAll", query = "delete from Customer c")})
 @Table(name = "CUSTOMER")
 public class Customer implements Serializable {
-
+    
     private static final long serialVersionUID = 1L;
+    
+    public static final int NAME_SIZE_MIN = 5;
+    public static final int NAME_SIZE_MAX = 30;
+    public static final int NAME_LENGTH = 10; 
+    public static final int ABOUT_SIZE_MAX = 250;
+    public static final int ABOUT_LENGTH = 250;
+    public static final long NUMBER_OF_CARDS_MIN = 0;
+    public static final long NUMBER_OF_CARDS_MAX = 150;
+    public static final int EMAIL_SIZE_MIN = 3;
+    public static final int EMAIL_SIZE_MAX = 30;
+    public static final int EMAIL_LENGTH = 30;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @NotNull
-    @Size(min = 5, max = 30)
-    @Column(name = "NAME", nullable = false, length = 10)
+    @Size(min = NAME_SIZE_MIN, max = NAME_SIZE_MAX)
+    @Column(name = "NAME", nullable = false, length = NAME_LENGTH)
     private String name;
     @NotNull
     @Past
@@ -46,13 +58,13 @@ public class Customer implements Serializable {
     private Date birthday;
     @Enumerated(EnumType.ORDINAL)
     private Gender gender;
-    @Size(max = 250)
-    @Column(name = "ABOUT", length = 250)
+    @Size(max = ABOUT_SIZE_MAX)
+    @Column(name = "ABOUT", length = ABOUT_LENGTH)
     private String about;
     @Enumerated(EnumType.ORDINAL)
     private Card card;
-    @Min(0L)
-    @Max(150L)
+    @Min(NUMBER_OF_CARDS_MIN)
+    @Max(NUMBER_OF_CARDS_MAX)
     @Column(name = "NUMBEROFCARDS", nullable = false)
     private Integer numberOfCards;
     @Column(name = "MAILINGLIST")
@@ -61,8 +73,8 @@ public class Customer implements Serializable {
     @Column(name = "LICENSE")
     private Boolean license;
     @NotNull
-    @Size(min = 3, max = 30)
-    @Column(name = "EMAIL", nullable = false, length = 30)
+    @Size(min = EMAIL_SIZE_MIN, max = EMAIL_SIZE_MAX)
+    @Column(name = "EMAIL", nullable = false, length = EMAIL_LENGTH)
     private String eMail;
 
     public String geteMail() {

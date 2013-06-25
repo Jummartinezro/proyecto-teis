@@ -125,8 +125,7 @@ public class CustomerServiceImpl implements ICustomerService {
      * Detect if the customer's gender is gone to be changed.
      *
      * @param customer the customer to be analized
-     * @return
-     * <code>true</code> if the customer's gender is gone to be changed,
+     * @return <code>true</code> if the customer's gender is gone to be changed,
      * <code>false</code> in other case.
      */
     private boolean isChangingGender(Customer customer) {
