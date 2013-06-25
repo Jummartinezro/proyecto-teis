@@ -211,17 +211,46 @@ public class Customer implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((about == null) ? 0 : about.hashCode());
-        result = prime * result
-                + ((birthday == null) ? 0 : birthday.hashCode());
-        result = prime * result + ((card == null) ? 0 : card.hashCode());
-        result = prime * result + ((gender == null) ? 0 : gender.hashCode());
-        result = prime * result + ((license == null) ? 0 : license.hashCode());
-        result = prime * result
-                + ((mailingList == null) ? 0 : mailingList.hashCode());
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result
-                + ((numberOfCards == null) ? 0 : numberOfCards.hashCode());
+        if (about == null) {
+            result = prime * result;
+        } else {
+            result = prime * result + about.hashCode();
+        }
+        if (birthday == null) {
+            result = prime * result + 0;
+        } else {
+            result = prime * result + birthday.hashCode();
+        }
+        if (card == null) {
+            result = prime * result + 0;
+        } else {
+            result = prime * result + card.hashCode();
+        }
+        if (gender == null) {
+            result = prime * result + 0;
+        } else {
+            result = prime * result + gender.hashCode();
+        }
+        if (license == null) {
+            result = prime * result + 0;
+        } else {
+            result = prime * result + license.hashCode();
+        }
+        if (mailingList == null) {
+            result = prime * result + 0;
+        } else {
+            result = prime * result + mailingList.hashCode();
+        }
+        if (name == null) {
+            result = prime * result + 0;
+        } else {
+            result = prime * result + name.hashCode();
+        }
+        if (numberOfCards == null) {
+            result = prime * result + 0;
+        } else {
+            result = prime * result + numberOfCards.hashCode();
+        }
         return result;
     }
 
