@@ -28,6 +28,7 @@ public class CustomerServiceImpl implements ICustomerService {
     public final static int MAX_LENGTH_NAME = 30;
     public final static int MAX_LENGTH_ABOUT = 250;
     public final static int ADULT_AGE = 18;
+    
     @ManagedProperty("#{customerDAO}")
     private ICrudDAO<Customer, Integer> dao;
 
@@ -98,7 +99,7 @@ public class CustomerServiceImpl implements ICustomerService {
             throw new InvalidNameAttributeException("Trying to put a length Name higher than 30!");
         } else if (entity.getBirthday() == null) {
             throw new InvalidBirthdayAttributeException("Trying to put a null Birthday!");
-        } else if (entity.getAbout() != null && entity.getAbout().length() > 250) {
+        } else if (entity.getAbout() != null && entity.getAbout().length() > MAX_LENGTH_ABOUT) {
             throw new InvalidAboutAttributeException("Trying to put a length About higher than 250!");
         } else if (entity.getCard() == null) {
             //En modificación es requerida
