@@ -77,8 +77,8 @@ public class CustomerBean implements Serializable {
             System.err.println("*** WARNING *** DataFactory not injected.");
         }
 
-        long count = this.service.count();
-        if (count == 0L) {
+        long tempCount = this.service.count();
+        if (tempCount == 0L) {
             this.dataFactory.createData();
         }
         refresh();

@@ -80,8 +80,8 @@ public class CustomerServiceImpl implements ICustomerService {
         this.dao.save(entity);
     }
 
-    public void setDao(ICrudDAO<Customer, Integer> dao) {
-        this.dao = dao;
+    public void setDao(ICrudDAO<Customer, Integer> settedDao) {
+        this.dao = settedDao;
     }
 
     @Override
@@ -130,11 +130,7 @@ public class CustomerServiceImpl implements ICustomerService {
      * <code>false</code> in other case.
      */
     private boolean isChangingGender(Customer customer) {
-        if (findById(customer.getId()).getGender() != customer.getGender()) {
-            return true;
-        } else {
-            return false;
-        }
+        return (findById(customer.getId()).getGender() != customer.getGender());
     }
 
     private boolean isNotAdult(Customer customer) {

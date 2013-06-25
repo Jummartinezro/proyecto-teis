@@ -292,7 +292,9 @@ public class Customer implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("Customer [id=%s, name=%s, numberOfCards=%s, birthday=%s, gender=%s, card=%s, about=%s, mailingList=%s, license=%s] [super.toString()=%s]",
+        return String.format("Customer [id=%s, name=%s, numberOfCards=%s, "
+                + "birthday=%s, gender=%s, card=%s, about=%s, mailingList=%s, "
+                + "license=%s] [super.toString()=%s]",
                 id, name, numberOfCards, birthday, gender, card, about,
                 mailingList, license, eMail, super.toString());
     }

@@ -28,9 +28,9 @@ public enum Gender {
     private final int id;
     private final String label;
 
-    private Gender(int id, String label) {
-        this.id = id;
-        this.label = label;
+    private Gender(int settedId, String settedLabel) {
+        this.id = settedId;
+        this.label = settedLabel;
     }
 
     public int getId() {
