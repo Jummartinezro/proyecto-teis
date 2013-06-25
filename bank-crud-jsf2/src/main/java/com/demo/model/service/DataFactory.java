@@ -26,9 +26,16 @@ import com.demo.pojo.Gender;
 public class DataFactory implements IDataFactory {
 
     public static final int DEFAULT_DATA_SIZE = 10;
+    public static final int RANDOM_NUMBER_OF_CARDS_1 = 75;
+    public static final int RANDOM_NUMBER_OF_CARDS_2 = 151;
+    public static final int RANDOM_YEAR_1 = 50;
+    public static final int RANDOM_YEAR_2 = 1950;
+    public static final int RANDOM_MONTH = 12;
+    public static final int RANDOM_DAY = 29;
+    public static final int RANDOM_CREATE_CUSTOMERS = 20;
 
     public static Boolean getRandomBoolean() {
-        if (getRandomNumberOfCards() > 75) {
+        if (getRandomNumberOfCards() > RANDOM_NUMBER_OF_CARDS_1) {
             return true;
         }
 
@@ -42,9 +49,9 @@ public class DataFactory implements IDataFactory {
 
     public static Date getRandomDate() {
         Calendar calendar = new GregorianCalendar();
-        calendar.set((int) Math.floor(Math.random() * 50 + 1950),
-                (int) Math.floor(Math.random() * 12),
-                (int) Math.floor(Math.random() * 29));
+        calendar.set((int) Math.floor(Math.random() * RANDOM_YEAR_1 + RANDOM_YEAR_2),
+                (int) Math.floor(Math.random() * RANDOM_MONTH),
+                (int) Math.floor(Math.random() * RANDOM_DAY));
 
         return calendar.getTime();
     }
@@ -55,7 +62,7 @@ public class DataFactory implements IDataFactory {
     }
 
     public static Integer getRandomNumberOfCards() {
-        return (int) Math.floor(Math.random() * 151);
+        return (int) Math.floor(Math.random() * RANDOM_NUMBER_OF_CARDS_2);
     }
     private EntityManager entityManager;
 
@@ -69,7 +76,7 @@ public class DataFactory implements IDataFactory {
         int index = 0;
         this.entityManager.getTransaction().begin();
         for (Customer customer : list) {
-            if (index % 20 == 0) {
+            if (index % RANDOM_CREATE_CUSTOMERS == 0) {
                 this.entityManager.clear();
                 this.entityManager.flush();
             }
