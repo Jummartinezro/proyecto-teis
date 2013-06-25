@@ -130,8 +130,11 @@ public class CustomerServiceImpl implements ICustomerService {
      * <code>false</code> in other case.
      */
     private boolean isChangingGender(Customer customer) {
-        return findById(customer.getId()).getGender() != customer.getGender()
-                ? true : false;
+        if (findById(customer.getId()).getGender() != customer.getGender()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private boolean isNotAdult(Customer customer) {
