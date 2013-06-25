@@ -24,10 +24,10 @@ import javax.faces.bean.ManagedProperty;
 @ApplicationScoped
 public class CustomerServiceImpl implements ICustomerService {
 
-    public final static int MIN_LENGTH_NAME = 5;
-    public final static int MAX_LENGTH_NAME = 30;
-    public final static int MAX_LENGTH_ABOUT = 250;
-    public final static int ADULT_AGE = 18;
+    public static final int MIN_LENGTH_NAME = 5;
+    public static final int MAX_LENGTH_NAME = 30;
+    public static final int MAX_LENGTH_ABOUT = 250;
+    public static final int ADULT_AGE = 18;
     
     @ManagedProperty("#{customerDAO}")
     private ICrudDAO<Customer, Integer> dao;

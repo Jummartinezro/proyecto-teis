@@ -5,5 +5,5 @@ package com.demo.model.service;
 
 public interface IDataFactory {
 
-    abstract void createData();
+    void createData();
 }
