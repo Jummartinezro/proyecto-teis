@@ -11,19 +11,19 @@ import com.demo.util.RequiredAttributeException;
 
 public abstract interface ICustomerService {
 
-    abstract long count();
+    long count();
 
-    abstract Customer create();
+    Customer create();
 
-    abstract void delete(Customer entity);
+    void delete(Customer entity);
 
-    abstract int deleteAll();
+    int deleteAll();
 
-    abstract List<Customer> findAll();
+    List<Customer> findAll();
 
-    abstract Customer findById(Integer id);
+    Customer findById(Integer id);
 
-    abstract void save(Customer entity) throws RequiredAttributeException;
+    void save(Customer entity) throws RequiredAttributeException;
 
-    abstract Customer update(Customer entity) throws Exception;
+    Customer update(Customer entity) throws Exception;
 }

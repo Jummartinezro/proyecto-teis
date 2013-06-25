@@ -8,19 +8,19 @@ import java.util.List;
 
 public abstract interface ICrudDAO<T, ID extends Serializable> {
 
-    abstract long count();
+    long count();
 
-    abstract T create();
+    T create();
 
-    abstract void delete(T entity);
+    void delete(T entity);
 
-    abstract int deleteAll();
+    int deleteAll();
 
-    abstract List<T> findAll();
+    List<T> findAll();
 
-    abstract T findById(ID id);
+    T findById(ID id);
 
-    abstract void save(T entity);
+    void save(T entity);
 
-    abstract T update(T entity);
+    T update(T entity);
 }
