@@ -32,9 +32,9 @@ public enum Card {
     private final int id;
     private final String label;
 
-    private Card(int id, String label) {
-        this.id = id;
-        this.label = label;
+    private Card(int settedId, String settedLabel) {
+        this.id = settedId;
+        this.label = settedLabel;
     }
 
     public int getId() {

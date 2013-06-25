@@ -98,21 +98,21 @@ public class LocaleBean implements Serializable {
     public Locale getApplicationLocale() {
         HttpServletRequest request = FacesUtil.getHttpServletRequest();
         UIViewRoot uiViewRoot = FacesUtil.getViewRoot();
-        Locale locale = null;
+        Locale tempLocale = null;
 
-        locale = getLocale();
-        if ((uiViewRoot != null) && (locale == null)) {
-            locale = uiViewRoot.getLocale();
+        tempLocale = getLocale();
+        if ((uiViewRoot != null) && (tempLocale == null)) {
+            tempLocale = uiViewRoot.getLocale();
         }
-        if ((request != null) && (locale == null)) {
-            locale = request.getLocale();
-        }
-
-        if (locale == null) {
-            locale = Locale.getDefault();
+        if ((request != null) && (tempLocale == null)) {
+            tempLocale = request.getLocale();
         }
 
-        return locale;
+        if (tempLocale == null) {
+            tempLocale = Locale.getDefault();
+        }
+
+        return tempLocale;
     }
 
     public Object[] getAvailableLocaleKeys() {
@@ -127,16 +127,16 @@ public class LocaleBean implements Serializable {
         return this.selectedLocaleKey;
     }
 
-    public void setApplicationLocale(Locale locale) {
+    public void setApplicationLocale(Locale settedLocale) {
         UIViewRoot uiViewRoot = FacesUtil.getViewRoot();
 
         if (uiViewRoot != null) {
-            uiViewRoot.setLocale(locale);
+            uiViewRoot.setLocale(settedLocale);
         }
     }
 
-    public void setSelectedLocaleKey(String selectedLocaleKey) {
-        this.selectedLocaleKey = selectedLocaleKey;
+    public void setSelectedLocaleKey(String settedSelectedLocaleKey) {
+        this.selectedLocaleKey = settedSelectedLocaleKey;
     }
     // ---------------------------
     // Bean getters/setters end
