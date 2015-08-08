@@ -1,0 +1,1 @@
+Testing de un modulo que consta de las acciones de un CRUD básico sobre una entidad denominada Cliente.
